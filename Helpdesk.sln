@@ -1,0 +1,34 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpdesk.Tests", "Helpdesk.Tests\Helpdesk.Tests.csproj", "{036474B8-43A8-48AA-BE40-016E9AC89B36}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpdesk.Domain", "Helpdesk.Domain\Helpdesk.Domain.csproj", "{3D95F868-B2E1-4AE8-832E-9AB1907EA54E}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Helpdesk.WebUI", "Helpdesk.WebUI\Helpdesk.WebUI.csproj", "{1DF7007B-0BAB-4A42-B82C-FB79A4912226}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{036474B8-43A8-48AA-BE40-016E9AC89B36}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{036474B8-43A8-48AA-BE40-016E9AC89B36}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{036474B8-43A8-48AA-BE40-016E9AC89B36}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{036474B8-43A8-48AA-BE40-016E9AC89B36}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3D95F868-B2E1-4AE8-832E-9AB1907EA54E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3D95F868-B2E1-4AE8-832E-9AB1907EA54E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3D95F868-B2E1-4AE8-832E-9AB1907EA54E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3D95F868-B2E1-4AE8-832E-9AB1907EA54E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{1DF7007B-0BAB-4A42-B82C-FB79A4912226}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{1DF7007B-0BAB-4A42-B82C-FB79A4912226}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{1DF7007B-0BAB-4A42-B82C-FB79A4912226}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{1DF7007B-0BAB-4A42-B82C-FB79A4912226}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
