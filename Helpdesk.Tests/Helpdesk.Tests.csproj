@@ -62,9 +62,8 @@
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
     </Reference>
-    <Reference Include="Moq, Version=4.7.1.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
-      <HintPath>..\packages\Moq.4.7.1\lib\net45\Moq.dll</HintPath>
-      <Private>True</Private>
+    <Reference Include="Moq, Version=4.7.8.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
+      <HintPath>..\packages\Moq.4.7.8\lib\net45\Moq.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -116,6 +115,10 @@
     <ProjectReference Include="..\Helpdesk.Domain\Helpdesk.Domain.csproj">
       <Project>{3d95f868-b2e1-4ae8-832e-9ab1907ea54e}</Project>
       <Name>Helpdesk.Domain</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Helpdesk.WebUI\Helpdesk.WebUI.csproj">
+      <Project>{1df7007b-0bab-4a42-b82c-fb79a4912226}</Project>
+      <Name>Helpdesk.WebUI</Name>
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
