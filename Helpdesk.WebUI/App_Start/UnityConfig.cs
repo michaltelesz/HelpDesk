@@ -1,10 +1,7 @@
 using System;
 using Microsoft.Practices.Unity;
-using Microsoft.Practices.Unity.Configuration;
-using Moq;
 using Helpdesk.Domain.Abstract;
-using System.Collections.Generic;
-using Helpdesk.Domain.Entities;
+using Helpdesk.Domain.Concrete;
 
 namespace Helpdesk.WebUI.App_Start
 {
@@ -41,15 +38,15 @@ namespace Helpdesk.WebUI.App_Start
 
             // TODO: Register your types here
             // container.RegisterType<IProductRepository, ProductRepository>();
-            Mock<IRequestRepository> mock = new Mock<IRequestRepository>();
-            mock.Setup(m => m.Computers).Returns(new List<Computer>
-            {
-                new Computer { Name = "Komputer Pierwszy", SerialNo = "abc123xyz", Temporary = false},
-                new Computer { Name = "Mocny komputer", SerialNo = "1234567", Temporary = false},
-                new Computer { Name = "Komputer tymczasowy", SerialNo = "temp", Temporary = true}
-            });
+            //Mock<IRequestRepository> mock = new Mock<IRequestRepository>();
+            //mock.Setup(m => m.Computers).Returns(new List<Computer>
+            //{
+            //    new Computer { Name = "Komputer Pierwszy", SerialNo = "abc123xyz", Temporary = false},
+            //    new Computer { Name = "Mocny komputer", SerialNo = "1234567", Temporary = false},
+            //    new Computer { Name = "Komputer tymczasowy", SerialNo = "temp", Temporary = true}
+            //});
 
-            container.RegisterInstance(mock.Object);
+            container.RegisterType<IRequestRepository, EFRequestRepository>();
         }
     }
 }
