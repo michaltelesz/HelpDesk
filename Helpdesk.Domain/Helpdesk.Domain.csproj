@@ -79,10 +79,20 @@
     <Compile Include="Concrete\EFDbContext.cs" />
     <Compile Include="Concrete\EFRequestRepository.cs" />
     <Compile Include="Entities\Computer.cs" />
+    <Compile Include="Entities\Customer.cs" />
     <Compile Include="Entities\Request.cs" />
+    <Compile Include="Entities\User.cs" />
     <Compile Include="Migrations\201704210943598_InitialCreate.cs" />
     <Compile Include="Migrations\201704210943598_InitialCreate.Designer.cs">
       <DependentUpon>201704210943598_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704211011044_AddComputerToRequest.cs" />
+    <Compile Include="Migrations\201704211011044_AddComputerToRequest.Designer.cs">
+      <DependentUpon>201704211011044_AddComputerToRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704211230593_CreateBasicCustomerStructure.cs" />
+    <Compile Include="Migrations\201704211230593_CreateBasicCustomerStructure.Designer.cs">
+      <DependentUpon>201704211230593_CreateBasicCustomerStructure.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -94,6 +104,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704210943598_InitialCreate.resx">
       <DependentUpon>201704210943598_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704211011044_AddComputerToRequest.resx">
+      <DependentUpon>201704211011044_AddComputerToRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704211230593_CreateBasicCustomerStructure.resx">
+      <DependentUpon>201704211230593_CreateBasicCustomerStructure.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
