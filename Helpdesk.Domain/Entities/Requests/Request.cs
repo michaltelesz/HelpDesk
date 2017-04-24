@@ -1,14 +1,16 @@
-﻿using System;
+﻿using Helpdesk.Domain.Entities.Computers;
+using Helpdesk.Domain.Entities.Users;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 
-namespace Helpdesk.Domain.Entities
+namespace Helpdesk.Domain.Entities.Requests
 {
     public class Request
     {
         public int ID { get; set; }
-        public string Descrption { get; set; }
+        public string Description { get; set; }
         public Computer Computer { get; set; }
 
         public DateTime ReceivedDate { get; set; }
@@ -16,5 +18,7 @@ namespace Helpdesk.Domain.Entities
 
         public DateTime ResolvedDate { get; set; }
         public User ResolverUser { get; set; }
+
+        public Status Status { get; set; }
     }
 }

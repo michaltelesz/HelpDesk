@@ -5,6 +5,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Helpdesk.Domain.Entities;
+using Helpdesk.Domain.Entities.Requests;
+using Helpdesk.Domain.Entities.Computers;
 
 namespace Helpdesk.Domain.Concrete
 {

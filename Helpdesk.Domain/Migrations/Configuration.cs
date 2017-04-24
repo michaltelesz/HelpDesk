@@ -10,7 +10,6 @@ namespace Helpdesk.Domain.Migrations
         public Configuration()
         {
             AutomaticMigrationsEnabled = false;
-            ContextKey = "Helpdesk.Domain.Concrete.EFDbContext";
         }
 
         protected override void Seed(Helpdesk.Domain.Concrete.EFDbContext context)

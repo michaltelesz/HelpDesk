@@ -1,4 +1,6 @@
 ﻿using Helpdesk.Domain.Entities;
+using Helpdesk.Domain.Entities.Computers;
+using Helpdesk.Domain.Entities.Requests;
 using System;
 using System.Collections.Generic;
 using System.Linq;

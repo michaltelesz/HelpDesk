@@ -4,12 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace Helpdesk.Domain.Entities.Users
+namespace Helpdesk.Domain.Entities.Computers
 {
-    public class Customer
+    public class ComponentType
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public string Address { get; set; }
+        public ComponentTypeCategory Category { get; set; }
     }
 }
