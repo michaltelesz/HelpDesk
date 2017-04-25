@@ -13,7 +13,7 @@ namespace Helpdesk.Domain.Migrations
         
         string IMigrationMetadata.Id
         {
-            get { return "201704241141274_Initial"; }
+            get { return "201704250846515_Initial"; }
         }
         
         string IMigrationMetadata.Source

@@ -15,13 +15,10 @@ namespace Helpdesk.Domain.Migrations
                         Date = c.DateTime(nullable: false),
                         Description = c.String(),
                         Status_ID = c.Int(),
-                        User_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Status", t => t.Status_ID)
-                .ForeignKey("dbo.Users", t => t.User_ID)
-                .Index(t => t.Status_ID)
-                .Index(t => t.User_ID);
+                .Index(t => t.Status_ID);
             
             CreateTable(
                 "dbo.Status",
@@ -29,14 +26,6 @@ namespace Helpdesk.Domain.Migrations
                     {
                         ID = c.Int(nullable: false, identity: true),
                         Description = c.String(),
-                    })
-                .PrimaryKey(t => t.ID);
-            
-            CreateTable(
-                "dbo.Users",
-                c => new
-                    {
-                        ID = c.Int(nullable: false, identity: true),
                     })
                 .PrimaryKey(t => t.ID);
             
@@ -111,18 +100,12 @@ namespace Helpdesk.Domain.Migrations
                         ReceivedDate = c.DateTime(nullable: false),
                         ResolvedDate = c.DateTime(nullable: false),
                         Computer_ID = c.Int(),
-                        ReceiverUser_ID = c.Int(),
-                        ResolverUser_ID = c.Int(),
                         Status_ID = c.Int(),
                     })
                 .PrimaryKey(t => t.ID)
                 .ForeignKey("dbo.Computers", t => t.Computer_ID)
-                .ForeignKey("dbo.Users", t => t.ReceiverUser_ID)
-                .ForeignKey("dbo.Users", t => t.ResolverUser_ID)
                 .ForeignKey("dbo.Status", t => t.Status_ID)
                 .Index(t => t.Computer_ID)
-                .Index(t => t.ReceiverUser_ID)
-                .Index(t => t.ResolverUser_ID)
                 .Index(t => t.Status_ID);
             
         }
@@ -130,24 +113,18 @@ namespace Helpdesk.Domain.Migrations
         public override void Down()
         {
             DropForeignKey("dbo.Requests", "Status_ID", "dbo.Status");
-            DropForeignKey("dbo.Requests", "ResolverUser_ID", "dbo.Users");
-            DropForeignKey("dbo.Requests", "ReceiverUser_ID", "dbo.Users");
             DropForeignKey("dbo.Requests", "Computer_ID", "dbo.Computers");
             DropForeignKey("dbo.Computers", "Owner_ID", "dbo.Customers");
             DropForeignKey("dbo.Components", "Computer_ID", "dbo.Computers");
             DropForeignKey("dbo.Components", "Type_ID", "dbo.ComponentTypes");
             DropForeignKey("dbo.ComponentTypes", "Category_ID", "dbo.ComponentTypeCategories");
-            DropForeignKey("dbo.Calls", "User_ID", "dbo.Users");
             DropForeignKey("dbo.Calls", "Status_ID", "dbo.Status");
             DropIndex("dbo.Requests", new[] { "Status_ID" });
-            DropIndex("dbo.Requests", new[] { "ResolverUser_ID" });
-            DropIndex("dbo.Requests", new[] { "ReceiverUser_ID" });
             DropIndex("dbo.Requests", new[] { "Computer_ID" });
             DropIndex("dbo.Computers", new[] { "Owner_ID" });
             DropIndex("dbo.ComponentTypes", new[] { "Category_ID" });
             DropIndex("dbo.Components", new[] { "Computer_ID" });
             DropIndex("dbo.Components", new[] { "Type_ID" });
-            DropIndex("dbo.Calls", new[] { "User_ID" });
             DropIndex("dbo.Calls", new[] { "Status_ID" });
             DropTable("dbo.Requests");
             DropTable("dbo.Customers");
@@ -155,7 +132,6 @@ namespace Helpdesk.Domain.Migrations
             DropTable("dbo.ComponentTypeCategories");
             DropTable("dbo.ComponentTypes");
             DropTable("dbo.Components");
-            DropTable("dbo.Users");
             DropTable("dbo.Status");
             DropTable("dbo.Calls");
         }

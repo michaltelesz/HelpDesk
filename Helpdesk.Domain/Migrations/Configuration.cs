@@ -1,5 +1,6 @@
 namespace Helpdesk.Domain.Migrations
 {
+    using Helpdesk.Domain.Entities.Requests;
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Migrations;
@@ -26,6 +27,11 @@ namespace Helpdesk.Domain.Migrations
             //      new Person { FullName = "Rowan Miller" }
             //    );
             //
+            context.Statuses.AddOrUpdate(
+                new Status { Description = "Nowe" },
+                new Status { Description = "W trakcie" },
+                new Status { Description = "Zakoñczone" }
+                );
         }
     }
 }

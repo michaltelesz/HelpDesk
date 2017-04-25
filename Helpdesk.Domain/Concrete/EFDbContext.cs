@@ -16,6 +16,7 @@ namespace Helpdesk.Domain.Concrete
         #region Requests
         public DbSet<Request> Requests { get; set; }
         public DbSet<Call> Calls { get; set; }
+        public DbSet<Status> Statuses { get; set; }
         #endregion
 
         #region Computers
@@ -26,7 +27,7 @@ namespace Helpdesk.Domain.Concrete
         #endregion
 
         #region Users
-        public DbSet<User> Users { get; set; }
+        //public DbSet<User> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }
         #endregion
     }

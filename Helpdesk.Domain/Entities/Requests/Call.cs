@@ -10,7 +10,7 @@ namespace Helpdesk.Domain.Entities.Requests
     {
         public int ID { get; set; }
         public DateTime Date { get; set; }
-        public User User { get; set; }
+        //public User User { get; set; }
         public string Description { get; set; }
         public Status Status { get; set; }
     }

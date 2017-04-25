@@ -86,10 +86,9 @@
     <Compile Include="Entities\Requests\Call.cs" />
     <Compile Include="Entities\Requests\Request.cs" />
     <Compile Include="Entities\Requests\Status.cs" />
-    <Compile Include="Entities\User.cs" />
-    <Compile Include="Migrations\201704241141274_Initial.cs" />
-    <Compile Include="Migrations\201704241141274_Initial.Designer.cs">
-      <DependentUpon>201704241141274_Initial.cs</DependentUpon>
+    <Compile Include="Migrations\201704250846515_Initial.cs" />
+    <Compile Include="Migrations\201704250846515_Initial.Designer.cs">
+      <DependentUpon>201704250846515_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -99,8 +98,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704241141274_Initial.resx">
-      <DependentUpon>201704241141274_Initial.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201704250846515_Initial.resx">
+      <DependentUpon>201704250846515_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
