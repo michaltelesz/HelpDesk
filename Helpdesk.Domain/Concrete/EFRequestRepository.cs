@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using Helpdesk.Domain.Entities;
 using Helpdesk.Domain.Entities.Requests;
 using Helpdesk.Domain.Entities.Computers;
+using Helpdesk.Domain.Entities.Users;
 
 namespace Helpdesk.Domain.Concrete
 {
@@ -21,6 +22,36 @@ namespace Helpdesk.Domain.Concrete
         public IEnumerable<Computer> Computers
         {
             get { return context.Computers; }
+        }
+
+        public IEnumerable<Status> Statuses
+        {
+            get { return context.Statuses; }
+        }
+
+        public IEnumerable<Component> Components
+        {
+            get { return context.Components; }
+        }
+
+        public IEnumerable<ComponentType> ComponentTypes
+        {
+            get { return context.ComponentTypes; }
+        }
+
+        public IEnumerable<Customer> Customers
+        {
+            get { return context.Customers; }
+        }
+
+        public IEnumerable<ComponentTypeCategory> TypeCategories
+        {
+            get { return context.TypeCategories; }
+        }
+
+        public IEnumerable<Call> Calls
+        {
+            get { return context.Calls; }
         }
     }
 }

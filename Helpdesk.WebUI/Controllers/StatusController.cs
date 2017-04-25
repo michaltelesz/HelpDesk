@@ -1,5 +1,4 @@
 ﻿using Helpdesk.Domain.Abstract;
-using Helpdesk.Domain.Entities;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,18 +7,19 @@ using System.Web.Mvc;
 
 namespace Helpdesk.WebUI.Controllers
 {
-    public class ComputerController : Controller
+    public class StatusController : Controller
     {
         private IRequestRepository repository;
 
-        public ComputerController(IRequestRepository requestRepository)
+        public StatusController(IRequestRepository requestRepository)
         {
             this.repository = requestRepository;
         }
 
-        public ViewResult List()
+        // GET: Status
+        public ActionResult Index()
         {
-            return View(repository.Computers);
+            return View(repository.Statuses);
         }
     }
 }
