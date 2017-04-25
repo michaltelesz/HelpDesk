@@ -1,0 +1,42 @@
+﻿@model Helpdesk.Domain.Entities.Requests.Request
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+
+<div>
+    <h4>Request</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ReceivedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ReceivedDate)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.ResolvedDate)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.ResolvedDate)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
+    @Html.ActionLink("Back to List", "Index")
+</p>

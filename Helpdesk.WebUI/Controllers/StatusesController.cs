@@ -7,11 +7,11 @@ using System.Web.Mvc;
 
 namespace Helpdesk.WebUI.Controllers
 {
-    public class StatusController : Controller
+    public class StatusesController : Controller
     {
         private IRequestRepository repository;
 
-        public StatusController(IRequestRepository requestRepository)
+        public StatusesController(IRequestRepository requestRepository)
         {
             this.repository = requestRepository;
         }

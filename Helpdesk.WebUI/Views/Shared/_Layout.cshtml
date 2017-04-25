@@ -18,11 +18,11 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="#">Brand</a>
+                <a class="navbar-brand" href="#">Serwis komputerowy</a>
             </div>
 
             <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <!--<div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                 <ul class="nav navbar-nav">
                     <li class="active"><a href="#">Link <span class="sr-only">(current)</span></a></li>
                     <li><a href="#">Link</a></li>
@@ -58,16 +58,33 @@
                         </ul>
                     </li>
                 </ul>
-            </div><!-- /.navbar-collapse -->
+            </div>-->
+            <!-- /.navbar-collapse -->
         </div><!-- /.container-fluid -->
     </nav>
 
     <div class="container">
-        <div class="row panel">
-            <div id="categories" class="col-xs-3">
-                Put something useful here later
+        <div class="row">
+            <div id="categories" class="col-xs-12 col-sm-3">
+                <div class="panel panel-default">
+
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Menu nawigacyjne</h3>
+                    </div>
+                    <div class="panel-body">
+                        <nav>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>@Html.ActionLink("Requests", "Index", "Requests", null, null)</li>
+                                <li>@Html.ActionLink("Calls", "Index", "Calls", null, null)</li>
+                                <li>@Html.ActionLink("Computers", "Index", "Computers", null, null)</li>
+                                <li>@Html.ActionLink("Components", "Index", "Components", null, null)</li>
+                                <li>@Html.ActionLink("Customers", "Index", "Customers", null, null)</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
             </div>
-            <div class="col-xs-8">
+            <div class="col-xs-12 col-sm-8">
                 @RenderBody()
             </div>
         </div>
