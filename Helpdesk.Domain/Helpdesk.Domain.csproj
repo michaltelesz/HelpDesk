@@ -90,6 +90,14 @@
     <Compile Include="Migrations\201704250846515_Initial.Designer.cs">
       <DependentUpon>201704250846515_Initial.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201704261142328_AddRequestReadableID.cs" />
+    <Compile Include="Migrations\201704261142328_AddRequestReadableID.Designer.cs">
+      <DependentUpon>201704261142328_AddRequestReadableID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201704261153547_EnableNullDateTime.cs" />
+    <Compile Include="Migrations\201704261153547_EnableNullDateTime.Designer.cs">
+      <DependentUpon>201704261153547_EnableNullDateTime.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -100,6 +108,12 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201704250846515_Initial.resx">
       <DependentUpon>201704250846515_Initial.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704261142328_AddRequestReadableID.resx">
+      <DependentUpon>201704261142328_AddRequestReadableID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201704261153547_EnableNullDateTime.resx">
+      <DependentUpon>201704261153547_EnableNullDateTime.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

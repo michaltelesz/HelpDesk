@@ -163,6 +163,35 @@ namespace Helpdesk.Domain.Migrations
                 );
 
             context.SaveChanges();
+
+            context.Requests.AddOrUpdate(
+                r => r.ReadableID,
+                new Request
+                {
+                    ReadableID = "2016/aaa/001",
+                    Description = "Stare zg³oszenie",
+                    Computer = context.Computers.FirstOrDefault(),
+                    ReceivedDate = DateTime.Parse("2016-09-15 19:30:41.7752486"),
+                    ResolvedDate = DateTime.Parse("2016-09-16 09:17:41.5248612"),
+                    Status = context.Statuses.FirstOrDefault(s => s.Description.Equals("Zakoñczone"))
+                },
+                new Request
+                {
+                    ReadableID = "2016/aaa/002",
+                    Description = "Drugie zg³oszenie",
+                    Computer = context.Computers.FirstOrDefault(),
+                    ReceivedDate = DateTime.Parse("2016-12-31 23:59:59.2134585"),
+                    Status = context.Statuses.FirstOrDefault(s => s.Description.Equals("W trakcie"))
+                },
+                new Request
+                {
+                    ReadableID = "2017/aab/001",
+                    Description = "Nowe zg³oszenie",
+                    Computer = context.Computers.FirstOrDefault(),
+                    ReceivedDate = DateTime.Now,
+                    Status = context.Statuses.FirstOrDefault(s => s.Description.Equals("Nowe"))
+                }
+                );
         }
     }
 }
