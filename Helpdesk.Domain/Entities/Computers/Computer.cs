@@ -12,7 +12,9 @@ namespace Helpdesk.Domain.Entities.Computers
         public string Name { get; set; }
         public string SerialNo { get; set; }
         public bool Temporary { get; set; }
-        public Customer Owner { get; set; }
-        public List<Component> Components { get; set; }
+        public virtual Customer Owner { get; set; }
+        public virtual ICollection<Component> Components { get; set; }
+
+        public int OwnerID { get; set; }
     }
 }

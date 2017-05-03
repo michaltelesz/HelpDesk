@@ -12,14 +12,17 @@ namespace Helpdesk.Domain.Entities.Requests
         public int ID { get; set; }
         public string ReadableID { get; set; }
         public string Description { get; set; }
-        public Computer Computer { get; set; }
+        public virtual Computer Computer { get; set; }
 
-        public DateTime? ReceivedDate { get; set; }
+        public DateTime ReceivedDate { get; set; }
         //public User ReceiverUser { get; set; }
 
         public DateTime? ResolvedDate { get; set; }
-        //public User ResolverUser { get; set; }
+        //public User? ResolverUser { get; set; }
 
-        public Status Status { get; set; }
+        public virtual Status Status { get; set; }
+
+        public int ComputerID { get; set; }
+        public int StatusID { get; set; }
     }
 }

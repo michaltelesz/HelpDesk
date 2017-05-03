@@ -12,6 +12,8 @@ namespace Helpdesk.Domain.Entities.Requests
         public DateTime? Date { get; set; }
         //public User User { get; set; }
         public string Description { get; set; }
-        public Status Status { get; set; }
+        public virtual Status Status { get; set; }
+
+        public int StatusID { get; set; }
     }
 }

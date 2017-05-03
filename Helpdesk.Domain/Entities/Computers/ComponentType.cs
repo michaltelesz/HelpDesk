@@ -10,6 +10,8 @@ namespace Helpdesk.Domain.Entities.Computers
     {
         public int ID { get; set; }
         public string Name { get; set; }
-        public ComponentTypeCategory Category { get; set; }
+        public virtual ComponentTypeCategory Category { get; set; }
+
+        public int CategoryID { get; set; }
     }
 }
