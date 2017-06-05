@@ -46,7 +46,7 @@ namespace Helpdesk.WebUI.App_Start
             //    new Computer { Name = "Komputer tymczasowy", SerialNo = "temp", Temporary = true}
             //});
 
-            container.RegisterType<IRequestRepository, EFRequestRepository>();
+            container.RegisterType<IRequestsRepository, EFRequestsRepository>();
         }
     }
 }

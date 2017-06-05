@@ -9,9 +9,9 @@ namespace Helpdesk.WebUI.Controllers
 {
     public class StatusesController : Controller
     {
-        private IRequestRepository repository;
+        private IRequestsRepository repository;
 
-        public StatusesController(IRequestRepository requestRepository)
+        public StatusesController(IRequestsRepository requestRepository)
         {
             this.repository = requestRepository;
         }

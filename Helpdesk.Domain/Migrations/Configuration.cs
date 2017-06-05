@@ -273,8 +273,40 @@ namespace Helpdesk.Domain.Migrations
                 new Request
                 {
                     ReadableID = "2017/aab/001",
-                    Description = "Nowe zg³oszenie",
+                    Description = "Drogi Marsza³ku, Wysoka Izbo. PKB roœnie. Ró¿norakie i miejsce szkolenia kadr poci¹ga za najwa¿niejszy punkt naszych dzia³añ obierzemy praktykê, nie zapewni i¿ zakup nowego sprzêtu zmusza nas do tej decyzji sk³oni³ mnie fakt, ¿e rozszerzenie naszej dzia³alnoœci rozszerza nam efekt systemu powszechnego uczestnictwa. Tak samo istotne jest ¿e, zawi¹zanie koalicji ukazuje nam horyzonty postaw uczestników wobec zadañ programowych zmusza nas do przeanalizowania form dzia³alnoœci zabezpiecza udzia³ szerokiej grupie w okreœlaniu istniej¹cych kryteriów koliduje z tym, wykorzystanie unijnych dotacji przedstawia interpretuj¹c¹ próbê sprawdzenia systemu powszechnego uczestnictwa. Jak ju¿ zapewne zd¹¿y³ zauwa¿yæ i¿ zakoñczenie tego projektu spe³nia wa¿ne zadanie w okreœlaniu dalszych kierunków postêpowego wychowania. Z drugiej strony, wykorzystanie unijnych dotacji powoduje docenianie wag systemu obs³ugi umo¿liwia w tym zakresie zabezpiecza udzia³ szerokiej grupie w kszta³towaniu odpowiednich warunków administracyjno-finansowych. Nie mówili prawdy. W ten sposób dokoñczenie aktualnych projektów wymaga sprecyzowania i realizacji istniej¹cych kryteriów wymaga sprecyzowania i miejsce szkolenia kadry odpowiadaj¹cego potrzebom. W praktyce zakres i unowoczeœniania systemu powszechnego uczestnictwa. Jednak¿e, zmiana istniej¹cych kryteriów koliduje z powodu obecnej sytuacji. Wy¿sze za³o¿enie ideowe, a tak¿e rozpoczêcie powszechnej akcji kszta³towania podstaw powoduje docenianie wag.",
                     ComputerID = context.Computers.Single(c => c.SerialNo == "rf³-av").ID,
+                    ReceivedDate = DateTime.Now,
+                    StatusID = statuses.Single(s => s.Description == "Nowe").ID
+                },
+                new Request
+                {
+                    ReadableID = "tag1",
+                    Description = "Chcia³bym zg³osiæ uszkodzenie monitora. Po ok. 5 minutach u¿ytkowania, na ekranie pojawia siê migotanie. Model mojego sprzêtu to: 123abc. Proszê o szybk¹ pomoc.",
+                    ComputerID = context.Computers.Single(c => c.SerialNo == "p0001").ID,
+                    ReceivedDate = DateTime.Now,
+                    StatusID = statuses.Single(s => s.Description == "Nowe").ID
+                },
+                new Request
+                {
+                    ReadableID = "tag2",
+                    Description = "W dniu wczorajszym mój komputer przesta³ odtwarzaæ p³yty CD. Po w³o¿eniu p³yty do czytnika, wydaje on dziwne dŸwiêki skrobania i trzeszczenia. Z góry dziêkujê za rozwi¹zanie problemu.",
+                    ComputerID = context.Computers.Single(c => c.SerialNo == "p0001").ID,
+                    ReceivedDate = DateTime.Now,
+                    StatusID = statuses.Single(s => s.Description == "Nowe").ID
+                },
+                new Request
+                {
+                    ReadableID = "tag3",
+                    Description = "Klient zg³osi³ uszkodzenie laptopa objawiaj¹ce siê nie reagowaniem na przycisk zasilania. Kontrolka baterii reaguje na pod³¹czenie zasilacza. Wstêpne oglêdziny sugeruj¹ uszkodzenie p³yty g³ównej.",
+                    ComputerID = context.Computers.Single(c => c.SerialNo == "p0001").ID,
+                    ReceivedDate = DateTime.Now,
+                    StatusID = statuses.Single(s => s.Description == "Nowe").ID
+                },
+                new Request
+                {
+                    ReadableID = "tag4",
+                    Description = "Zg³oszenie klienta zawiera³o informacje o pêkniêtej matrycy ekranu w laptopie. Zosta³y udzielone informacje o orientacyjnych kosztach naprawy. Klient ma dostarczyæ sprzêt w ci¹gu najbli¿szego tygodnia.",
+                    ComputerID = context.Computers.Single(c => c.SerialNo == "p0001").ID,
                     ReceivedDate = DateTime.Now,
                     StatusID = statuses.Single(s => s.Description == "Nowe").ID
                 }

@@ -11,12 +11,30 @@ using Helpdesk.Domain.Entities.Users;
 
 namespace Helpdesk.Domain.Concrete
 {
-    public class EFRequestRepository : IRequestRepository
+    public class EFRequestsRepository : IRequestsRepository
     {
         private EFDbContext context = new EFDbContext();
         public IEnumerable<Request> Requests
         {
             get { return context.Requests; }
+        }
+
+        public void SaveRequest(Request request)
+        {
+            if (request.ID == 0)
+            {
+                context.Requests.Add(request);
+            }
+            else
+            {
+                Request dbEntry = context.Requests.Find(request.ID);
+                if (dbEntry != null)
+                {
+                    //dbEntry.Description = request.Description;
+                    //...
+                }
+            }
+            context.SaveChanges();
         }
 
         public IEnumerable<Computer> Computers

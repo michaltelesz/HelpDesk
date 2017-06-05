@@ -30,5 +30,10 @@ namespace Helpdesk.Domain.Concrete
         //public DbSet<User> Users { get; set; }
         public DbSet<Customer> Customers { get; set; }
         #endregion
+
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            //modelBuilder.Entity<Request>().HasMany(r => r.Tags).WithMany(t => t.Requests).Map(k => k.MapLeftKey("RequestID").MapRightKey("RequestTagID").ToTable("RequestsTags"));
+        }
     }
 }

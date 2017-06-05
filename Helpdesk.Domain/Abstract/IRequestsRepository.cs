@@ -10,16 +10,18 @@ using System.Threading.Tasks;
 
 namespace Helpdesk.Domain.Abstract
 {
-    public interface IRequestRepository
+    public interface IRequestsRepository
     {
         #region Requests
-        IEnumerable<Request> Requests { get;}
+        IEnumerable<Request> Requests { get; }
+        void SaveRequest(Request request);
+
         IEnumerable<Call> Calls { get; }
-        IEnumerable<Status> Statuses { get;  }
+        IEnumerable<Status> Statuses { get; }
         #endregion
 
         #region Computers
-        IEnumerable<Computer> Computers { get;  }
+        IEnumerable<Computer> Computers { get; }
         IEnumerable<Component> Components { get; }
         IEnumerable<ComponentType> ComponentTypes { get; }
         IEnumerable<ComponentTypeCategory> TypeCategories { get; }
@@ -28,6 +30,7 @@ namespace Helpdesk.Domain.Abstract
         #region Users
         //IEnumerable<User> Users { get; set; }
         IEnumerable<Customer> Customers { get; }
+
         #endregion
     }
 }
