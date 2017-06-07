@@ -10,6 +10,8 @@ using Helpdesk.Domain.Concrete;
 using Helpdesk.Domain.Entities.Requests;
 using Helpdesk.Domain.Abstract;
 using System.Text.RegularExpressions;
+using Helpdesk.Domain.Entities.Users;
+using Helpdesk.Domain.Entities.Computers;
 
 namespace Helpdesk.WebUI.Controllers
 {
@@ -42,10 +44,31 @@ namespace Helpdesk.WebUI.Controllers
             return View(request);
         }
 
+        // GET: Requests/Create/1/1
+        [Route("Requests/Create/{customer:int}/{computer:int}", Name ="Create_New")]
+        public ActionResult Create(int customer, int computer)
+        {
+            Computer computerEntity = repository.Computers.SingleOrDefault(c => c.ID == computer && c.OwnerID == customer);
+            if (computerEntity == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            return View("Create", computerEntity);
+        }
+
+        // GET: Requests/Create/1
+        [Route("Requests/Create/{customer:int}")]
+        public ActionResult Create(int customer)
+        {
+            ICollection<Computer> computers = repository.Customers.Single(c => c.ID == customer).Computers;
+            return View("Create_Computers", computers);
+        }
+
         // GET: Requests/Create
         public ActionResult Create()
         {
-            return View();
+            IEnumerable<Customer> customers = repository.Customers;
+            return View("Create_Customers", customers);
         }
 
         // POST: Requests/Create
@@ -61,7 +84,7 @@ namespace Helpdesk.WebUI.Controllers
                 //db.SaveChanges();
                 request.ReceivedDate = DateTime.Now;
                 request.ComputerID = 1;
-                request.StatusID = 1;
+                request.StatusID = repository.Statuses.Single(s => s.Description == "Nowe").ID;
                 request.ReadableID = Guid.NewGuid().ToString().Substring(0, 12);
                 repository.SaveRequest(request);
                 return RedirectToAction("Index");

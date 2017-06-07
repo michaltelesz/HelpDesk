@@ -33,6 +33,7 @@ namespace Helpdesk.Domain.Concrete
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
+            modelBuilder.Entity<Status>().ToTable("Statuses");
             //modelBuilder.Entity<Request>().HasMany(r => r.Tags).WithMany(t => t.Requests).Map(k => k.MapLeftKey("RequestID").MapRightKey("RequestTagID").ToTable("RequestsTags"));
         }
     }

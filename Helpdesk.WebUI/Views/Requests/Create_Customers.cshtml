@@ -1,0 +1,41 @@
+﻿@model IEnumerable<Helpdesk.Domain.Entities.Users.Customer>
+
+@using Helpdesk.Domain.Entities.Users
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>New Request</h2>
+
+<h4>Choose customer</h4>
+<hr />
+<table class="table">
+    <tr>
+        <th>
+            @Html.DisplayNameFor(model => model.ID)
+        </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Name)
+        </th>
+        <th></th>
+    </tr>
+    @foreach (Customer customer in Model)
+            {
+        <tr>
+            <td>
+                @customer.ID
+            </td>
+            <td>
+                @customer.Name
+            </td>
+            <td>
+                @Html.ActionLink("Select", "Create", new { customer = customer.ID })
+            </td>
+        </tr>
+    }
+</table>
+
+<div>
+    @Html.ActionLink("Back to Requests List", "Index")
+</div>

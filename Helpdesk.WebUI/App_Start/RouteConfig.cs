@@ -11,7 +11,12 @@ namespace Helpdesk.WebUI
     {
         public static void RegisterRoutes(RouteCollection routes)
         {
+            routes.MapMvcAttributeRoutes();
+
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+
+            //routes.MapRoute(name: "Request_Create_Customers",
+            //    url : "Requests/");
 
             routes.MapRoute(
                 name: "Default",

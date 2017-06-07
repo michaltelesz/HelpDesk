@@ -112,6 +112,10 @@
     <Compile Include="Migrations\201706051805125_ImproveEntities.Designer.cs">
       <DependentUpon>201706051805125_ImproveEntities.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201706061905277_ChangeStatusesTableName.cs" />
+    <Compile Include="Migrations\201706061905277_ChangeStatusesTableName.Designer.cs">
+      <DependentUpon>201706061905277_ChangeStatusesTableName.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -137,6 +141,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201706051805125_ImproveEntities.resx">
       <DependentUpon>201706051805125_ImproveEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201706061905277_ChangeStatusesTableName.resx">
+      <DependentUpon>201706061905277_ChangeStatusesTableName.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
