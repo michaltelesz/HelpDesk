@@ -36,7 +36,7 @@
                 @computer.SerialNo
             </td>
             <td>
-                @Html.RouteLink("Select", "Create_New", new { computer = computer.ID, customer = computer.OwnerID })
+                @Html.ActionLink("Select", "Create", new { computer = computer.ID})
             </td>
         </tr>
     }

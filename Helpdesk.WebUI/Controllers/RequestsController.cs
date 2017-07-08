@@ -44,38 +44,45 @@ namespace Helpdesk.WebUI.Controllers
             return View(request);
         }
 
-        // GET: Requests/Create/1/1
-        [Route("Requests/Create/{customer:int}/{computer:int}", Name ="Create_New")]
-        public ActionResult Create(int customer, int computer)
-        {
-            Computer computerEntity = repository.Computers.SingleOrDefault(c => c.ID == computer && c.OwnerID == customer);
-            if (computerEntity == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            return View("Create", computerEntity);
-        }
-
-        // GET: Requests/Create/1
-        [Route("Requests/Create/{customer:int}")]
-        public ActionResult Create(int customer)
-        {
-            ICollection<Computer> computers = repository.Customers.Single(c => c.ID == customer).Computers;
-            return View("Create_Computers", computers);
-        }
-
         // GET: Requests/Create
         public ActionResult Create()
         {
             IEnumerable<Customer> customers = repository.Customers;
-            return View("Create_Customers", customers);
+            return View("ChooseCustomer", customers);
         }
+
+        // GET: Requests/Create/ChooseComputer/1
+        [Route("Requests/Create/ChooseComputer/{customer:int}")]
+        public ActionResult ChooseComputer(int customer)
+        {
+            ICollection<Computer> computers = repository.Customers.Single(c => c.ID == customer).Computers;
+            return View("ChooseComputer", computers);
+        }
+
+        // GET: Requests/Create/1
+        [Route("Requests/Create/{computer:int}")]
+        public ActionResult Create(int computer)
+        {
+            Computer computerEntity = repository.Computers.SingleOrDefault(c => c.ID == computer);
+            if (computerEntity == null)
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+            }
+            Request newRequest = new Request
+            {
+                ComputerID = computerEntity.ID
+            };
+            return View("Create", newRequest);
+        }
+
+        
 
         // POST: Requests/Create
         // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
         // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Route("Requests/Create/{computer:int}")]
         public ActionResult Create([Bind(Include = "Description")] Request request)
         {
             if (ModelState.IsValid)
