@@ -10,5 +10,7 @@ namespace Helpdesk.Domain.Entities.Requests
     {
         public int ID { get; set; }
         public string Description { get; set; }
+        public virtual ICollection<Call> Calls { get; set; }
+        public virtual ICollection<Request> Requests { get; set; }
     }
 }

@@ -17,6 +17,8 @@ namespace Helpdesk.Domain.Abstract
         void SaveRequest(Request request);
 
         IEnumerable<Call> Calls { get; }
+        void SaveCall(Call call);
+
         IEnumerable<Status> Statuses { get; }
         #endregion
 

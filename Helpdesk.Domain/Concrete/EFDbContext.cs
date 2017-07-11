@@ -34,6 +34,9 @@ namespace Helpdesk.Domain.Concrete
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
             modelBuilder.Entity<Status>().ToTable("Statuses");
+            modelBuilder.Entity<Call>().HasRequired(c => c.Status).WithMany(s => s.Calls).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Request>().HasRequired(c => c.Status).WithMany(s => s.Requests).WillCascadeOnDelete(false);
+            modelBuilder.Entity<Call>().HasRequired(c => c.Request).WithMany(r => r.Calls).WillCascadeOnDelete(true);
             //modelBuilder.Entity<Request>().HasMany(r => r.Tags).WithMany(t => t.Requests).Map(k => k.MapLeftKey("RequestID").MapRightKey("RequestTagID").ToTable("RequestsTags"));
         }
     }

@@ -29,5 +29,7 @@ namespace Helpdesk.Domain.Entities.Requests
 
         public int ComputerID { get; set; }
         public int StatusID { get; set; }
+
+        public virtual ICollection<Call> Calls { get; set; }
     }
 }

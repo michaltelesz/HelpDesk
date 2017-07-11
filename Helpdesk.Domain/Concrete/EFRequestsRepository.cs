@@ -30,8 +30,10 @@ namespace Helpdesk.Domain.Concrete
                 Request dbEntry = context.Requests.Find(request.ID);
                 if (dbEntry != null)
                 {
-                    //dbEntry.Description = request.Description;
-                    //...
+                    dbEntry.Description = request.Description;
+                    dbEntry.ComputerID = request.ComputerID;
+                    dbEntry.StatusID = request.StatusID;
+                    dbEntry.ResolvedDate = request.ResolvedDate;
                 }
             }
             context.SaveChanges();
@@ -70,6 +72,24 @@ namespace Helpdesk.Domain.Concrete
         public IEnumerable<Call> Calls
         {
             get { return context.Calls; }
+        }
+
+        public void SaveCall(Call call)
+        {
+            if (call.ID == 0)
+            {
+                context.Calls.Add(call);
+            }
+            else
+            {
+                Call dbEntry = context.Calls.Find(call.ID);
+                if (dbEntry != null)
+                {
+                    dbEntry.Description = call.Description;
+                    //dbEntry.StatusID = call.StatusID;
+                }
+            }
+            context.SaveChanges();
         }
     }
 }

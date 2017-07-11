@@ -13,7 +13,10 @@ namespace Helpdesk.Domain.Entities.Requests
         //public User User { get; set; }
         public string Description { get; set; }
         public virtual Status Status { get; set; }
+        public virtual Request Request { get; set; }
 
         public int StatusID { get; set; }
+        public int RequestID { get; set; }
+
     }
 }

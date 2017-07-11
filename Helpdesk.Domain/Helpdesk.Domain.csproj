@@ -88,33 +88,9 @@
     <Compile Include="Entities\Requests\Call.cs" />
     <Compile Include="Entities\Requests\Request.cs" />
     <Compile Include="Entities\Requests\Status.cs" />
-    <Compile Include="Migrations\201704250846515_Initial.cs" />
-    <Compile Include="Migrations\201704250846515_Initial.Designer.cs">
-      <DependentUpon>201704250846515_Initial.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704261142328_AddRequestReadableID.cs" />
-    <Compile Include="Migrations\201704261142328_AddRequestReadableID.Designer.cs">
-      <DependentUpon>201704261142328_AddRequestReadableID.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201704261153547_EnableNullDateTime.cs" />
-    <Compile Include="Migrations\201704261153547_EnableNullDateTime.Designer.cs">
-      <DependentUpon>201704261153547_EnableNullDateTime.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705031639396_ImproveEFmodel.cs" />
-    <Compile Include="Migrations\201705031639396_ImproveEFmodel.Designer.cs">
-      <DependentUpon>201705031639396_ImproveEFmodel.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201705031841220_AddForeignKeysToComponents.cs" />
-    <Compile Include="Migrations\201705031841220_AddForeignKeysToComponents.Designer.cs">
-      <DependentUpon>201705031841220_AddForeignKeysToComponents.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706051805125_ImproveEntities.cs" />
-    <Compile Include="Migrations\201706051805125_ImproveEntities.Designer.cs">
-      <DependentUpon>201706051805125_ImproveEntities.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\201706061905277_ChangeStatusesTableName.cs" />
-    <Compile Include="Migrations\201706061905277_ChangeStatusesTableName.Designer.cs">
-      <DependentUpon>201706061905277_ChangeStatusesTableName.cs</DependentUpon>
+    <Compile Include="Migrations\201707112303358_ReinitializeDatabase.cs" />
+    <Compile Include="Migrations\201707112303358_ReinitializeDatabase.Designer.cs">
+      <DependentUpon>201707112303358_ReinitializeDatabase.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -124,26 +100,8 @@
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201704250846515_Initial.resx">
-      <DependentUpon>201704250846515_Initial.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704261142328_AddRequestReadableID.resx">
-      <DependentUpon>201704261142328_AddRequestReadableID.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201704261153547_EnableNullDateTime.resx">
-      <DependentUpon>201704261153547_EnableNullDateTime.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705031639396_ImproveEFmodel.resx">
-      <DependentUpon>201705031639396_ImproveEFmodel.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201705031841220_AddForeignKeysToComponents.resx">
-      <DependentUpon>201705031841220_AddForeignKeysToComponents.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706051805125_ImproveEntities.resx">
-      <DependentUpon>201706051805125_ImproveEntities.cs</DependentUpon>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Migrations\201706061905277_ChangeStatusesTableName.resx">
-      <DependentUpon>201706061905277_ChangeStatusesTableName.cs</DependentUpon>
+    <EmbeddedResource Include="Migrations\201707112303358_ReinitializeDatabase.resx">
+      <DependentUpon>201707112303358_ReinitializeDatabase.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
