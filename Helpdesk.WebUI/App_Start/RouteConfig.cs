@@ -18,6 +18,9 @@ namespace Helpdesk.WebUI
             //routes.MapRoute(name: "Request_Create_Customers",
             //    url : "Requests/");
 
+            routes.MapRoute("RequestDetails_CallsPages", "Requests/{id}/Page/{page}", new { controller = "Requests", action = "Details" });
+            routes.MapRoute("RequestDetails", "Requests/{id}", new { controller = "Requests", action = "Details" });
+
             routes.MapRoute(
                 name: "Default",
                 url: "{controller}/{action}/{id}",

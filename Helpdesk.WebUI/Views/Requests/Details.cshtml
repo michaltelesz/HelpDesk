@@ -1,4 +1,5 @@
-﻿@model Helpdesk.Domain.Entities.Requests.Request
+﻿@using Helpdesk.WebUI.Helpers
+@model Helpdesk.WebUI.Models.RequestDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
@@ -35,6 +36,36 @@
         </dd>
 
     </dl>
+
+    <table class="table">
+        <tr>
+            <th>ID</th>
+            <th>Date</th>
+            <th>Description</th>
+            <th>Status</th>
+        </tr>
+
+        @foreach (var item in Model.Calls)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(call => item.ID)
+                </td>
+                <td>
+                    @Html.DisplayFor(call => item.Date)
+                </td>
+                <td>
+                    @Html.DisplayFor(call => item.Description)
+                </td>
+                <td>
+                    @Html.DisplayFor(call => item.Status.Description)
+                </td>
+            </tr>
+        }
+    </table>
+    <div>
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("Details", new { id = Model.ID, page = x }))
+    </div>
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |

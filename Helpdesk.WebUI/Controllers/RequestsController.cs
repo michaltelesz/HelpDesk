@@ -12,12 +12,14 @@ using Helpdesk.Domain.Abstract;
 using System.Text.RegularExpressions;
 using Helpdesk.Domain.Entities.Users;
 using Helpdesk.Domain.Entities.Computers;
+using Helpdesk.WebUI.Models;
 
 namespace Helpdesk.WebUI.Controllers
 {
     public class RequestsController : Controller
     {
         private IRequestsRepository repository;
+        public int PageSize = 5;
 
         public RequestsController(IRequestsRepository requestsRepository)
         {
@@ -30,7 +32,7 @@ namespace Helpdesk.WebUI.Controllers
         }
 
         // GET: Requests/Details/5
-        public ActionResult Details(int? id)
+        public ActionResult Details(int? id, int page = 1)
         {
             if (id == null)
             {
@@ -41,7 +43,24 @@ namespace Helpdesk.WebUI.Controllers
             {
                 return HttpNotFound();
             }
-            return View(request);
+            RequestDetailsViewModel requestViewModel = new RequestDetailsViewModel()
+            {
+                ID = request.ID,
+                ReadableID = request.ReadableID,
+                Description = request.Description,
+                Computer = request.Computer,
+                ReceivedDate = request.ReceivedDate,
+                ResolvedDate = request.ResolvedDate,
+                Status = request.Status,
+                Calls = request.Calls.OrderByDescending(c => c.Date).Skip((page - 1) * PageSize).Take(PageSize),
+                PagingInfo = new PagingInfo()
+                {
+                    CurrentPage = page,
+                    ItemsPerPage = PageSize,
+                    TotalItems = repository.Calls.Where(c => c.RequestID == id).Count()
+                }
+            };
+            return View(requestViewModel);
         }
 
         // GET: Requests/Create
@@ -133,15 +152,21 @@ namespace Helpdesk.WebUI.Controllers
         // GET: Requests/Close/5
         public ActionResult Close(int id)
         {
+            int statusID = repository.Statuses.Single(s => s.Description == "Zakończone").ID;
             Call newCall = new Call
             {
                 Date = DateTime.Now,
-                //StatusID = repository.Statuses.Single(s => s.Description == "Zakończone").ID,
-                Description = "--- RESOLVED ---"
+                StatusID = statusID,
+                Description = "--- RESOLVED ---",
+                RequestID = id
             };
             repository.SaveCall(newCall);
 
-            return View();
+            Request request = repository.Requests.Single(r => r.ID == id);
+            request.StatusID = statusID;
+            repository.SaveRequest(request);
+
+            return RedirectToAction("Details", new { id = request.ID });
         }
 
         // GET: Requests/Reopen/5
