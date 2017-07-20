@@ -36,6 +36,9 @@
         </dd>
 
     </dl>
+    @Html.ActionLink("Add note", "Create", "Calls" , new { id = Model.ID }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Close", "Close", new { id = Model.ID }, new { @class = "btn btn-danger" })
+    @Html.ActionLink("Reopen", "Reopen", new { id = Model.ID }, new { @class = "btn btn-success" })
 
     <table class="table">
         <tr>

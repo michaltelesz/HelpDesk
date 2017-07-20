@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Mvc.Routing.Constraints;
 using System.Web.Routing;
 
 namespace Helpdesk.WebUI
@@ -19,7 +20,7 @@ namespace Helpdesk.WebUI
             //    url : "Requests/");
 
             routes.MapRoute("RequestDetails_CallsPages", "Requests/{id}/Page/{page}", new { controller = "Requests", action = "Details" });
-            routes.MapRoute("RequestDetails", "Requests/{id}", new { controller = "Requests", action = "Details" });
+            routes.MapRoute("RequestDetails", "Requests/{id}", new { controller = "Requests", action = "Details" }, new { id = new IntRouteConstraint() });
 
             routes.MapRoute(
                 name: "Default",

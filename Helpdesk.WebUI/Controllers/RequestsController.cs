@@ -108,11 +108,21 @@ namespace Helpdesk.WebUI.Controllers
             {
                 //db.Requests.Add(request);
                 //db.SaveChanges();
+                var statusID = repository.Statuses.Single(s => s.Description == "Nowe").ID;
                 request.ReceivedDate = DateTime.Now;
-                request.StatusID = repository.Statuses.Single(s => s.Description == "Nowe").ID;
+                request.StatusID = statusID;
                 request.ReadableID = Guid.NewGuid().ToString().Substring(0, 12);
                 repository.SaveRequest(request);
-                return RedirectToAction("Index");
+
+                Call call = new Call()
+                {
+                    RequestID = request.ID,
+                    Date = DateTime.Now,
+                    Description = "--- REQUEST CREATED ---",
+                    StatusID = statusID
+                };
+                repository.SaveCall(call);
+                return RedirectToAction("Details", new { id = request.ID });
             }
 
             return View(request);
