@@ -182,7 +182,21 @@ namespace Helpdesk.WebUI.Controllers
         // GET: Requests/Reopen/5
         public ActionResult Reopen(int id)
         {
-            return View();
+            int statusID = repository.Statuses.Single(s => s.Description == "W trakcie").ID;
+            Call newCall = new Call
+            {
+                Date = DateTime.Now,
+                StatusID = statusID,
+                Description = "--- REOPENED ---",
+                RequestID = id
+            };
+            repository.SaveCall(newCall);
+
+            Request request = repository.Requests.Single(r => r.ID == id);
+            request.StatusID = statusID;
+            repository.SaveRequest(request);
+
+            return RedirectToAction("Details", new { id = request.ID });
         }
     }
 }
