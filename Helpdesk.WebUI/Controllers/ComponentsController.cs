@@ -1,128 +1,145 @@
-﻿using System;
+﻿using Helpdesk.Domain.Abstract;
+using Helpdesk.Domain.Entities.Computers;
+using Helpdesk.Domain.Entities.Requests;
+using Helpdesk.Domain.Entities.Users;
+using Helpdesk.WebUI.Models.Components;
+using Microsoft.AspNet.Identity;
+using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
-using Helpdesk.Domain.Concrete;
-using Helpdesk.Domain.Entities.Computers;
 
 namespace Helpdesk.WebUI.Controllers
 {
+    [Authorize]
     public class ComponentsController : Controller
     {
-        private EFDbContext db = new EFDbContext();
+        private IRequestsRepository _repository;
 
-        // GET: Components
-        public ActionResult Index()
+        public ComponentsController(IRequestsRepository requestsRepository)
         {
-            return View(db.Components.ToList());
+            _repository = requestsRepository;
         }
 
-        // GET: Components/Details/5
+        // GET: Components/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Component component = db.Components.Find(id);
+
+            Component component = _repository.Components.Single(c => c.ID == id);
+
             if (component == null)
             {
                 return HttpNotFound();
             }
-            return View(component);
-        }
 
-        // GET: Components/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Components/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,SerialNo")] Component component)
-        {
-            if (ModelState.IsValid)
+            string currentUserID = User.Identity.GetUserId();
+            Customer currentCustomer = _repository.Customers.SingleOrDefault(c => c.UserID == currentUserID);
+            if (!(User.IsInRole("Consultant") || (currentCustomer != null && (component.Computer != null && currentCustomer.ID == component.Computer.OwnerID))))
             {
-                db.Components.Add(component);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
 
-            return View(component);
+            IEnumerable<Request> entityRequests = component.ComponentCalls.Select(cc => cc.Call.Request).Distinct();
+            IEnumerable<ComponentDetailsViewModel.Request> requests = entityRequests.Select(er => new ComponentDetailsViewModel.Request()
+            {
+                ID = er.ID,
+                ReadableID = er.ReadableID,
+                ReceivedDate = er.ReceivedDate,
+                StatusLevel = er.Status.Level,
+                StatusDescription = er.Status.Description
+            });
+            ComponentDetailsViewModel viewModel = new ComponentDetailsViewModel()
+            {
+                ID = component.ID,
+                Name = component.Name,
+                SerialNo = component.SerialNo,
+                ComputerName = component.Computer.Name,
+                ComputerID = component.ComputerID,
+                TypeName = component.Type.Name,
+                Requests = requests
+            };
+            return View(viewModel);
         }
 
-        // GET: Components/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Components/Create/5
+        [Route("Components/Create/{computerID:int}")]
+        public ActionResult Create(int? computerID)
         {
-            if (id == null)
+            if (computerID == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Component component = db.Components.Find(id);
-            if (component == null)
+
+            Computer computer = _repository.Computers.SingleOrDefault(c => c.ID == computerID);
+            if (computer == null)
             {
                 return HttpNotFound();
             }
-            return View(component);
+
+            if (!(User.IsInRole("Consultant")))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            IEnumerable<ComponentCreateViewModel.ComponentType> componentTypes = _repository.ComponentTypes.Select(c => new ComponentCreateViewModel.ComponentType()
+            {
+                ID = c.ID,
+                Name = c.Name,
+                DataGroup = c.Category.Name
+            });
+            ComponentCreateViewModel viewModel = new ComponentCreateViewModel()
+            {
+                ComputerName = computer.Name,
+                ComponentTypes = componentTypes
+            };
+            return View("Create", viewModel);
         }
 
-        // POST: Components/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Components/Create/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,SerialNo")] Component component)
+        [Route("Components/Create/{computerID:int}")]
+        public ActionResult Create([Bind(Include = "Name, SerialNo, TypeID")] ComponentCreateViewModel model, int computerID)
         {
+            Computer computer = _repository.Computers.SingleOrDefault(c => c.ID == computerID);
             if (ModelState.IsValid)
             {
-                db.Entry(component).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(component);
-        }
+                if (computer == null)
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
+                }
 
-        // GET: Components/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
-            {
-                return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
-            }
-            Component component = db.Components.Find(id);
-            if (component == null)
-            {
-                return HttpNotFound();
-            }
-            return View(component);
-        }
+                if (!(User.IsInRole("Consultant")))
+                {
+                    return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+                }
 
-        // POST: Components/Delete/5
-        [HttpPost, ActionName("Delete")]
-        [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
-        {
-            Component component = db.Components.Find(id);
-            db.Components.Remove(component);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
+                Component component = new Component()
+                {
+                    ComputerID = computer.ID,
+                    Name = model.Name,
+                    SerialNo = model.SerialNo,
+                    TypeID = model.TypeID
+                };
+                _repository.SaveComponent(component);
 
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
+                return RedirectToAction("Details", "Components", new { id = component.ID });
             }
-            base.Dispose(disposing);
+            IEnumerable<ComponentCreateViewModel.ComponentType> componentTypes = _repository.ComponentTypes.Select(c => new ComponentCreateViewModel.ComponentType()
+            {
+                ID = c.ID,
+                Name = c.Name,
+                DataGroup = c.Category.Name
+            });
+            model.ComputerName = computer.Name;
+            model.ComponentTypes = componentTypes;
+            return View(model);
         }
     }
 }

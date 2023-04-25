@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Helpdesk.Domain.Entities.Requests;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -13,6 +14,8 @@ namespace Helpdesk.Domain.Entities.Computers
         public string SerialNo { get; set; }
         public virtual ComponentType Type { get; set; }
         public virtual Computer Computer { get; set; }
+
+        public virtual ICollection<ComponentCall> ComponentCalls { get; set; }
 
         public int TypeID { get; set; }
         public int ComputerID { get; set; }

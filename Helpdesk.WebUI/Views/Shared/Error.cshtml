@@ -1,0 +1,11 @@
+﻿@model string[]
+@{
+    ViewBag.Title = "Error";
+}
+
+<h2>Error</h2>
+@foreach(string error in Model)
+{
+    <h3 class="text-danger">@error</h3>
+}
+

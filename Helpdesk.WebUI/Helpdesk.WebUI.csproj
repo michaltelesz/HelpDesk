@@ -24,6 +24,7 @@
     <UseGlobalApplicationHostFile />
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
+    <Use64BitIISExpress />
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -75,11 +76,35 @@
     <Reference Include="Microsoft.ApplicationInsights, Version=2.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.2.3.0\lib\net45\Microsoft.ApplicationInsights.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform, Version=1.0.3.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.1.0.3\lib\net45\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll</HintPath>
       <Private>True</Private>
     </Reference>
     <Reference Include="Microsoft.CSharp" />
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
       <Private>True</Private>
@@ -102,6 +127,12 @@
     </Reference>
     <Reference Include="Moq, Version=4.7.8.0, Culture=neutral, PublicKeyToken=69f491c39445e920, processorArchitecture=MSIL">
       <HintPath>..\packages\Moq.4.7.8\lib\net45\Moq.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
@@ -165,22 +196,34 @@
     <Content Include="Content\bootstrap.css.map" />
     <Content Include="Content\bootstrap-theme.min.css.map" />
     <Content Include="Content\bootstrap-theme.css.map" />
+    <None Include="Properties\PublishProfiles\HelpdeskWebUI20180110073640 - Web Deploy.pubxml" />
     <None Include="Scripts\jquery-1.10.2.intellisense.js" />
     <None Include="Scripts\jquery-3.1.1-vsdoc.js" />
     <Content Include="Scripts\jquery-3.1.1.js" />
     <Content Include="Scripts\jquery-3.1.1.min.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.js" />
     <Content Include="Scripts\jquery-3.1.1.slim.min.js" />
+    <None Include="Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="Scripts\jquery.validate.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.6.2.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\IdentityConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\UnityConfig.cs" />
     <Compile Include="App_Start\UnityMvcActivator.cs" />
-    <Compile Include="Controllers\CallsController.cs" />
+    <Compile Include="Controllers\AccountController.cs" />
     <Compile Include="Controllers\ComponentsController.cs" />
+    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\RoleAdminController.cs" />
+    <Compile Include="Controllers\SharedController.cs" />
+    <Compile Include="Controllers\UserAdminController.cs" />
+    <Compile Include="Controllers\CallsController.cs" />
     <Compile Include="Controllers\ComputersController.cs" />
     <Compile Include="Controllers\CustomersController.cs" />
     <Compile Include="Controllers\RequestsController.cs" />
@@ -188,9 +231,44 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Helpers\IdentityHelpers.cs" />
     <Compile Include="Helpers\PagingHelpers.cs" />
+    <Compile Include="Infrastructure\AppRoleManager.cs" />
+    <Compile Include="Infrastructure\AppUserManager.cs" />
+    <Compile Include="Infrastructure\ClaimsRoles.cs" />
+    <Compile Include="Models\Account\UserDetailsViewModel.cs" />
+    <Compile Include="Models\Account\UserRegisterViewModel.cs" />
+    <Compile Include="Models\Calls\CallCreateViewModel.cs" />
+    <Compile Include="Models\Calls\CallDetailsViewModel.cs" />
+    <Compile Include="Models\Components\ComponentDetailsViewModel.cs" />
+    <Compile Include="Models\Components\ComponentEditViewModel.cs" />
+    <Compile Include="Models\Components\ComponentCreateViewModel.cs" />
+    <Compile Include="Models\Computers\ComputerCreateTempViewModel.cs" />
+    <Compile Include="Models\Computers\ComputerCreateViewModel.cs" />
+    <Compile Include="Models\Computers\ComputerDetailsViewModel.cs" />
+    <Compile Include="Models\Customers\CustomerCreateViewModel.cs" />
+    <Compile Include="Models\Customers\CustomerDetailsViewModel.cs" />
+    <Compile Include="Models\Customers\CustomerEditViewModel.cs" />
+    <Compile Include="Models\Customers\CustomerIndexViewModel.cs" />
     <Compile Include="Models\PagingInfo.cs" />
-    <Compile Include="Models\RequestDetailsViewModel.cs" />
+    <Compile Include="Models\Requests\RequestChooseComputerViewModel.cs" />
+    <Compile Include="Models\Requests\RequestChooseCustomerViewModel.cs" />
+    <Compile Include="Models\Requests\RequestCreateViewModel.cs" />
+    <Compile Include="Models\Requests\RequestCustomerCreateViewModel.cs" />
+    <Compile Include="Models\Requests\RequestConsultantIndexViewModel.cs" />
+    <Compile Include="Models\Requests\RequestDetailsViewModel.cs" />
+    <Compile Include="Models\Requests\RequestCustomerIndexViewModel.cs" />
+    <Compile Include="Models\Requests\RequestEditViewModel.cs" />
+    <Compile Include="Models\Requests\RequestIndexViewModel.cs" />
+    <Compile Include="Models\RoleAdmin\RoleCreateViewModel.cs" />
+    <Compile Include="Models\RoleAdmin\RoleEditViewModel.cs" />
+    <Compile Include="Models\Account\UserLoginViewModel.cs" />
+    <Compile Include="Models\RoleAdmin\RoleIndexViewModel.cs" />
+    <Compile Include="Models\RoleAdmin\RoleModificationViewModel.cs" />
+    <Compile Include="Models\Shared\MenuViewModel.cs" />
+    <Compile Include="Models\UserAdmin\UserCreateViewModel.cs" />
+    <Compile Include="Models\UserAdmin\UserIndexViewModel.cs" />
+    <Compile Include="Models\UserAdmin\UserRoleEditViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -204,33 +282,43 @@
     <Content Include="Scripts\jquery-3.1.1.slim.min.map" />
     <Content Include="Scripts\jquery-3.1.1.min.map" />
     <Content Include="Views\Statuses\Index.cshtml" />
-    <Content Include="Views\Computers\Create.cshtml" />
-    <Content Include="Views\Computers\Delete.cshtml" />
-    <Content Include="Views\Computers\Details.cshtml" />
-    <Content Include="Views\Computers\Edit.cshtml" />
-    <Content Include="Views\Computers\Index.cshtml" />
-    <Content Include="Views\Calls\Create.cshtml" />
-    <Content Include="Views\Calls\Delete.cshtml" />
-    <Content Include="Views\Calls\Details.cshtml" />
-    <Content Include="Views\Calls\Edit.cshtml" />
-    <Content Include="Views\Calls\Index.cshtml" />
-    <Content Include="Views\Components\Create.cshtml" />
-    <Content Include="Views\Components\Delete.cshtml" />
-    <Content Include="Views\Components\Details.cshtml" />
-    <Content Include="Views\Components\Edit.cshtml" />
-    <Content Include="Views\Components\Index.cshtml" />
-    <Content Include="Views\Customers\Create.cshtml" />
-    <Content Include="Views\Customers\Delete.cshtml" />
-    <Content Include="Views\Customers\Details.cshtml" />
-    <Content Include="Views\Customers\Edit.cshtml" />
-    <Content Include="Views\Customers\Index.cshtml" />
     <Content Include="Views\Requests\ChooseCustomer.cshtml" />
-    <Content Include="Views\Requests\Delete.cshtml" />
     <Content Include="Views\Requests\Details.cshtml" />
     <Content Include="Views\Requests\Edit.cshtml" />
     <Content Include="Views\Requests\Index.cshtml" />
     <Content Include="Views\Requests\ChooseComputer.cshtml" />
     <Content Include="Views\Requests\Create.cshtml" />
+    <Content Include="Views\Computers\CreateTemp.cshtml" />
+    <Content Include="Views\Customers\Index.cshtml" />
+    <Content Include="Views\Customers\Details.cshtml" />
+    <Content Include="Views\Computers\Details.cshtml" />
+    <Content Include="Views\Calls\Create.cshtml" />
+    <Content Include="Views\UserAdmin\Index.cshtml" />
+    <Content Include="Views\UserAdmin\Create.cshtml" />
+    <Content Include="Views\Account\Login.cshtml" />
+    <Content Include="Views\RoleAdmin\Index.cshtml" />
+    <Content Include="Views\RoleAdmin\Create.cshtml" />
+    <Content Include="Views\RoleAdmin\Edit.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
+    <Content Include="Views\Account\Register.cshtml" />
+    <Content Include="Views\UserAdmin\EditRoles.cshtml" />
+    <Content Include="Views\Account\Details.cshtml" />
+    <Content Include="Views\UserAdmin\Details.cshtml" />
+    <Content Include="Views\Customers\Edit.cshtml" />
+    <Content Include="Views\Computers\Index.cshtml" />
+    <Content Include="Views\Customers\Create.cshtml" />
+    <Content Include="Views\Shared\_TopMenu.cshtml" />
+    <Content Include="Views\Requests\CustomerCreate.cshtml" />
+    <Content Include="Views\Shared\_LeftMenu.cshtml" />
+    <Content Include="Views\Requests\CustomerIndex.cshtml" />
+    <Content Include="Views\Requests\ConsultantIndex.cshtml" />
+    <Content Include="Views\Requests\IndexUnassigned.cshtml" />
+    <Content Include="Views\Calls\Details.cshtml" />
+    <Content Include="Views\Computers\Create.cshtml" />
+    <Content Include="Views\Components\Details.cshtml" />
+    <Content Include="Views\Components\Create.cshtml" />
+    <Content Include="Views\Components\Edit.cshtml" />
+    <Content Include="Views\Shared\Error.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

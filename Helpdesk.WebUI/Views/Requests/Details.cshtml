@@ -1,76 +1,175 @@
 ﻿@using Helpdesk.WebUI.Helpers
-@model Helpdesk.WebUI.Models.RequestDetailsViewModel
+@using Helpdesk.WebUI.Models.Requests
+@model Helpdesk.WebUI.Models.Requests.RequestDetailsViewModel
 
 @{
     ViewBag.Title = "Details";
 }
 
-<h2>Details</h2>
+<h2>Zgłoszenie</h2>
+<h4>@Model.ReadableID</h4>
+<hr />
 
 <div>
-    <h4>Request</h4>
-    <hr />
     <dl class="dl-horizontal">
-        <dt>
-            @Html.DisplayNameFor(model => model.Description)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.Description)
-        </dd>
 
         <dt>
             @Html.DisplayNameFor(model => model.ReceivedDate)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.ReceivedDate)
         </dd>
 
+        @if (Model.CustomerID != null)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.CustomerName)
+            </dt>
+            <dd>
+                @Html.ActionLink(Model.CustomerName, "Details", "Customers", new { id = Model.CustomerID }, null)
+            </dd>
+        }
         <dt>
-            @Html.DisplayNameFor(model => model.ResolvedDate)
+            @Html.DisplayNameFor(model => model.ComputerName)
+        </dt>
+        <dd>
+            @if (@Model.ComputerID == null)
+            {
+                <em>-- brak --</em>
+            }
+            else
+            {
+                @Html.ActionLink(Model.ComputerName, "Details", "Computers", new { id = Model.ComputerID }, null)
+            }
+        </dd>
+
+        @if (Model.CreatorCustomer != null)
+            {
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatorCustomer)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatorCustomer.Name)
+            </dd>
+        }
+
+        @if (Model.CreatorConsultant != null)
+            {
+            <dt>
+                @Html.DisplayNameFor(model => model.CreatorConsultant)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.CreatorConsultant.Name)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.AssignedTo)
+        </dt>
+        <dd>
+            @if (@Model.AssignedTo == null)
+            {
+                <em>-- brak --</em>
+            }
+            else
+            {
+                @Html.DisplayFor(model => model.AssignedTo.Name)
+            }
+        </dd>
+
+        @if (Model.IsClosed)
+        {
+            <dt>
+                @Html.DisplayNameFor(model => model.ResolvedDate)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ResolvedDate)
+            </dd>
+
+            <dt>
+                @Html.DisplayNameFor(model => model.ClosedBy)
+            </dt>
+            <dd>
+                @Html.DisplayFor(model => model.ClosedBy.Name)
+            </dd>
+        }
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Status)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.ResolvedDate)
+            <span class="label label-@Model.Status.Level">@Model.Status.Description</span>
         </dd>
-
     </dl>
-    @Html.ActionLink("Add note", "Create", "Calls" , new { id = Model.ID }, new { @class = "btn btn-primary" })
-    @Html.ActionLink("Close", "Close", new { id = Model.ID }, new { @class = "btn btn-danger" })
-    @Html.ActionLink("Reopen", "Reopen", new { id = Model.ID }, new { @class = "btn btn-success" })
-
-    <table class="table">
-        <tr>
-            <th>ID</th>
-            <th>Date</th>
-            <th>Description</th>
-            <th>Status</th>
-        </tr>
-
-        @foreach (var item in Model.Calls)
-            {
-            <tr>
-                <td>
-                    @Html.DisplayFor(call => item.ID)
-                </td>
-                <td>
-                    @Html.DisplayFor(call => item.Date)
-                </td>
-                <td>
-                    @Html.DisplayFor(call => item.Description)
-                </td>
-                <td>
-                    @Html.DisplayFor(call => item.Status.Description)
-                </td>
-            </tr>
-        }
-    </table>
     <div>
-        @Html.PageLinks(Model.PagingInfo, x => Url.Action("Details", new { id = Model.ID, page = x }))
+        <h4>Komentarz</h4>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @Html.DisplayFor(model => model.Description)
+            </div>
+        </div>
+    </div>
+    <p>
+        @if (Model.CanAssign && !Model.IsClosed)
+        {
+            @Html.ActionLink("Przypisz do mnie", "Assign", "Requests", new { requestID = Model.ID }, new { @class = "btn btn-primary" })
+        }
+        @if (!Model.IsClosed)
+        {
+            @Html.ActionLink("Dodaj notatkę", "Create", "Calls", new { requestID = Model.ID }, new { @class = "btn btn-primary" })
+        }
+        @if (!Model.IsClosed)
+        {
+            @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" })
+        }
+        @if (Model.IsOpened)
+        {
+            @Html.ActionLink("Zamknij", "Close", new { id = Model.ID }, new { @class = "btn btn-danger" })
+        }
+        @if (Model.IsClosed)
+        {
+            @Html.ActionLink("Otwórz ponownie", "Reopen", new { id = Model.ID }, new { @class = "btn btn-success" })
+        }
+    </p>
+    <hr />
+    <div>
+        <h4>Notatki do zgłoszenia</h4>
+        <table class="table table-hover">
+            <tr>
+                <th>Date</th>
+                <th>Description</th>
+                <th />
+                <th>Status</th>
+                <th class="text-right" />
+            </tr>
+
+            @foreach (RequestDetailsViewModel.Call call in Model.Calls)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(vm => call.Date)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(vm => call.Description)
+                    </td>
+                    <td>
+                        @if (call.HasComponents)
+                        {
+                            <span class="glyphicon glyphicon-tasks" />
+                        }
+                    </td>
+                    <td>
+                        <span class="label label-@call.StatusLevel">@call.StatusDescription</span>
+                    </td>
+                    <td>
+                        @Html.ActionLink("Szczegóły", "Details", "Calls", new { id = call.ID }, new { @class = "text-right" })
+                    </td>
+                </tr>
+            }
+        </table>
+    </div>
+    <div align="center">
+        @Html.PageLinks(Model.PagingInfo, x => Url.Action("Details", new { requestId = Model.ID, page = x }))
     </div>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

@@ -1,19 +1,18 @@
-﻿@model Helpdesk.Domain.Entities.Computers.Computer
+﻿@using Helpdesk.WebUI.Models.Computers
+@model Helpdesk.WebUI.Models.Computers.ComputerDetailsViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = $"Komputer: {@Model.Name}";
 }
 
-<h2>Details</h2>
-
+<h2>Komputer</h2>
+<h4>@Model.Name</h4>
+<hr />
 <div>
-    <h4>Computer</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
@@ -21,22 +20,52 @@
         <dt>
             @Html.DisplayNameFor(model => model.SerialNo)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.SerialNo)
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.Temporary)
+            @Html.DisplayNameFor(model => model.OwnerName)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Temporary)
+            @Html.ActionLink(Model.OwnerName,"Details","Customers",new { id = Model.OwnerID },null)
         </dd>
-
     </dl>
+
+    <p>
+        @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" })
+        @Html.ActionLink("Dodaj podzespół", "Create", "Components", new { computerId = Model.ID }, new { @class = "btn btn-default" })
+        @Html.ActionLink("Dodaj zgłoszenie", "Create", "Requests", new { computerID = Model.ID }, new { @class = "btn btn-primary" })
+    </p>
+    <hr />
+    @if (Model.ComponentsByCategories.Count() > 0)
+    {
+        <div>
+            <h4>Podzespoły</h4>
+            @foreach (ComputerDetailsViewModel.ComponentCategory componentCategory in Model.ComponentsByCategories)
+            {
+                <div class="panel panel-info">
+                    <div class="panel-heading">@componentCategory.Name</div>
+                    <table class="table table-hover">
+                        <tr>
+                            <th>Typ</th>
+                            <th>Nazwa</th>
+                            <th>Numer Seryjny</th>
+                            <th />
+                        </tr>
+                        @foreach (ComputerDetailsViewModel.Component component in componentCategory.Components)
+                        {
+                            <tr>
+                                <td>@component.TypeName</td>
+                                <td>@component.Name</td>
+                                <td>@component.SerialNo</td>
+                                <td>@Html.ActionLink("Szczegóły", "Details", "Components", new { id = component.ID }, null)</td>
+                            </tr>
+                        }
+                    </table>
+                </div>
+            }
+        </div>
+
+    }
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

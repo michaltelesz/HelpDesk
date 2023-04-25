@@ -36,9 +36,39 @@
     <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
       <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
     </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Core, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Core.2.2.1\lib\net45\Microsoft.AspNet.Identity.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.EntityFramework, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.EntityFramework.2.2.1\lib\net45\Microsoft.AspNet.Identity.EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.AspNet.Identity.Owin, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Identity.Owin.2.2.1\lib\net45\Microsoft.AspNet.Identity.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.3.1.0\lib\net45\Microsoft.Owin.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Host.SystemWeb, Version=3.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Host.SystemWeb.3.1.0\lib\net45\Microsoft.Owin.Host.SystemWeb.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.2.1.0\lib\net45\Microsoft.Owin.Security.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.Cookies, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.Cookies.2.1.0\lib\net45\Microsoft.Owin.Security.Cookies.dll</HintPath>
+    </Reference>
+    <Reference Include="Microsoft.Owin.Security.OAuth, Version=2.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.Owin.Security.OAuth.2.1.0\lib\net45\Microsoft.Owin.Security.OAuth.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.Web.Infrastructure, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.Web.Infrastructure.1.0.0.0\lib\net40\Microsoft.Web.Infrastructure.dll</HintPath>
       <Private>True</Private>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=4.5.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.4.5.11\lib\net40\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="Owin, Version=1.0.0.0, Culture=neutral, PublicKeyToken=f0ebd12fd5e55cc5, processorArchitecture=MSIL">
+      <HintPath>..\packages\Owin.1.0\lib\net40\Owin.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -84,13 +114,85 @@
     <Compile Include="Entities\Computers\ComponentType.cs" />
     <Compile Include="Entities\Computers\ComponentTypeCategory.cs" />
     <Compile Include="Entities\Computers\Computer.cs" />
-    <Compile Include="Entities\Customer.cs" />
+    <Compile Include="Entities\Requests\ComponentCall.cs" />
+    <Compile Include="Entities\Users\AppRole.cs" />
+    <Compile Include="Entities\Users\Consultant.cs" />
+    <Compile Include="Entities\Users\Customer.cs" />
     <Compile Include="Entities\Requests\Call.cs" />
     <Compile Include="Entities\Requests\Request.cs" />
     <Compile Include="Entities\Requests\Status.cs" />
+    <Compile Include="Entities\Users\AppUser.cs" />
     <Compile Include="Migrations\201707112303358_ReinitializeDatabase.cs" />
     <Compile Include="Migrations\201707112303358_ReinitializeDatabase.Designer.cs">
       <DependentUpon>201707112303358_ReinitializeDatabase.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708031242555_AddLevelToStatus.cs" />
+    <Compile Include="Migrations\201708031242555_AddLevelToStatus.Designer.cs">
+      <DependentUpon>201708031242555_AddLevelToStatus.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708251727390_AddIdentityEntities.cs" />
+    <Compile Include="Migrations\201708251727390_AddIdentityEntities.Designer.cs">
+      <DependentUpon>201708251727390_AddIdentityEntities.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708281900468_AddUserRoles.cs" />
+    <Compile Include="Migrations\201708281900468_AddUserRoles.Designer.cs">
+      <DependentUpon>201708281900468_AddUserRoles.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708311858258_LinkCustomerWithUser.cs" />
+    <Compile Include="Migrations\201708311858258_LinkCustomerWithUser.Designer.cs">
+      <DependentUpon>201708311858258_LinkCustomerWithUser.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201708312031304_AddIsClosedToStatuses.cs" />
+    <Compile Include="Migrations\201708312031304_AddIsClosedToStatuses.Designer.cs">
+      <DependentUpon>201708312031304_AddIsClosedToStatuses.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709051937291_AddConsultants.cs" />
+    <Compile Include="Migrations\201709051937291_AddConsultants.Designer.cs">
+      <DependentUpon>201709051937291_AddConsultants.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201709071901012_UpdateUserCreate.cs" />
+    <Compile Include="Migrations\201709071901012_UpdateUserCreate.Designer.cs">
+      <DependentUpon>201709071901012_UpdateUserCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712171726318_AddUserToCall.cs" />
+    <Compile Include="Migrations\201712171726318_AddUserToCall.Designer.cs">
+      <DependentUpon>201712171726318_AddUserToCall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712181455170_AllowNullComputerInRequest.cs" />
+    <Compile Include="Migrations\201712181455170_AllowNullComputerInRequest.Designer.cs">
+      <DependentUpon>201712181455170_AllowNullComputerInRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712261521575_AddAssignedUsersToRequest.cs" />
+    <Compile Include="Migrations\201712261521575_AddAssignedUsersToRequest.Designer.cs">
+      <DependentUpon>201712261521575_AddAssignedUsersToRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712281251149_RemoveStatusIsClosedField.cs" />
+    <Compile Include="Migrations\201712281251149_RemoveStatusIsClosedField.Designer.cs">
+      <DependentUpon>201712281251149_RemoveStatusIsClosedField.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201712301341215_AddComponentCall.cs" />
+    <Compile Include="Migrations\201712301341215_AddComponentCall.Designer.cs">
+      <DependentUpon>201712301341215_AddComponentCall.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801070622324_LooseCustomerToUserDependency.cs" />
+    <Compile Include="Migrations\201801070622324_LooseCustomerToUserDependency.Designer.cs">
+      <DependentUpon>201801070622324_LooseCustomerToUserDependency.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801080933061_ChangeLengthOfReadableID.cs" />
+    <Compile Include="Migrations\201801080933061_ChangeLengthOfReadableID.Designer.cs">
+      <DependentUpon>201801080933061_ChangeLengthOfReadableID.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801081505231_AddRequirementOfCreatedByInRequest.cs" />
+    <Compile Include="Migrations\201801081505231_AddRequirementOfCreatedByInRequest.Designer.cs">
+      <DependentUpon>201801081505231_AddRequirementOfCreatedByInRequest.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801081624518_AddPhoneNoToCustomer.cs" />
+    <Compile Include="Migrations\201801081624518_AddPhoneNoToCustomer.Designer.cs">
+      <DependentUpon>201801081624518_AddPhoneNoToCustomer.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201801081939251_UpdateDateTimeFormatInCall.cs" />
+    <Compile Include="Migrations\201801081939251_UpdateDateTimeFormatInCall.Designer.cs">
+      <DependentUpon>201801081939251_UpdateDateTimeFormatInCall.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -102,6 +204,57 @@
   <ItemGroup>
     <EmbeddedResource Include="Migrations\201707112303358_ReinitializeDatabase.resx">
       <DependentUpon>201707112303358_ReinitializeDatabase.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708031242555_AddLevelToStatus.resx">
+      <DependentUpon>201708031242555_AddLevelToStatus.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708251727390_AddIdentityEntities.resx">
+      <DependentUpon>201708251727390_AddIdentityEntities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708281900468_AddUserRoles.resx">
+      <DependentUpon>201708281900468_AddUserRoles.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708311858258_LinkCustomerWithUser.resx">
+      <DependentUpon>201708311858258_LinkCustomerWithUser.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201708312031304_AddIsClosedToStatuses.resx">
+      <DependentUpon>201708312031304_AddIsClosedToStatuses.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709051937291_AddConsultants.resx">
+      <DependentUpon>201709051937291_AddConsultants.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201709071901012_UpdateUserCreate.resx">
+      <DependentUpon>201709071901012_UpdateUserCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712171726318_AddUserToCall.resx">
+      <DependentUpon>201712171726318_AddUserToCall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712181455170_AllowNullComputerInRequest.resx">
+      <DependentUpon>201712181455170_AllowNullComputerInRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712261521575_AddAssignedUsersToRequest.resx">
+      <DependentUpon>201712261521575_AddAssignedUsersToRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712281251149_RemoveStatusIsClosedField.resx">
+      <DependentUpon>201712281251149_RemoveStatusIsClosedField.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201712301341215_AddComponentCall.resx">
+      <DependentUpon>201712301341215_AddComponentCall.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801070622324_LooseCustomerToUserDependency.resx">
+      <DependentUpon>201801070622324_LooseCustomerToUserDependency.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801080933061_ChangeLengthOfReadableID.resx">
+      <DependentUpon>201801080933061_ChangeLengthOfReadableID.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801081505231_AddRequirementOfCreatedByInRequest.resx">
+      <DependentUpon>201801081505231_AddRequirementOfCreatedByInRequest.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801081624518_AddPhoneNoToCustomer.resx">
+      <DependentUpon>201801081624518_AddPhoneNoToCustomer.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201801081939251_UpdateDateTimeFormatInCall.resx">
+      <DependentUpon>201801081939251_UpdateDateTimeFormatInCall.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

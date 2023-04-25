@@ -1,19 +1,24 @@
-﻿@model Helpdesk.Domain.Entities.Computers.Component
+﻿@using Helpdesk.WebUI.Models.Components
+@model Helpdesk.WebUI.Models.Components.ComponentDetailsViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = $"Podzespół: {@Model.Name}";
 }
 
-<h2>Details</h2>
-
+<h2>Podzespół</h2>
+<h4>@Model.Name</h4>
+<hr />
 <div>
-    <h4>Component</h4>
-    <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.TypeName)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.TypeName)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
@@ -21,14 +26,56 @@
         <dt>
             @Html.DisplayNameFor(model => model.SerialNo)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.SerialNo)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.ComputerName)
+        </dt>
+        <dd>
+            @Html.ActionLink(Model.ComputerName, "Details", "Computers", new { id = Model.ComputerID }, null)
+        </dd>
     </dl>
+
+    <p>
+        @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" })
+    </p>
+    <hr />
+    @if (Model.Requests.Count() > 0)
+    {
+        <div>
+            <h4>Zgłoszenia dla podzespołu</h4>
+            <div class="panel panel-info">
+                <table class="table">
+                    <tr>
+                        <th>ID</th>
+                        <th>Utworzono</th>
+                        <th>Status</th>
+                        <th></th>
+                    </tr>
+
+                    @foreach (ComponentDetailsViewModel.Request request in Model.Requests)
+                {
+                        <tr>
+                            <td>
+                                @Html.DisplayFor(modelItem => request.ReadableID)
+                            </td>
+                            <td>
+                                @Html.DisplayFor(modelItem => request.ReceivedDate)
+                            </td>
+                            <td>
+                                @{
+                                    <span class="label label-@request.StatusLevel">@request.StatusDescription</span>
+                                }
+                            </td>
+                            <td>
+                                @Html.ActionLink("Szczegóły", "Details", "Requests", new { id = request.ID }, null)
+                            </td>
+                        </tr>
+                                    }
+                </table>
+            </div>
+        </div>
+                                    }
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

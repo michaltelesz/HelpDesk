@@ -1,25 +1,27 @@
-﻿@model IEnumerable<Helpdesk.Domain.Entities.Users.Customer>
-
-@using Helpdesk.Domain.Entities.Users
+﻿@using Helpdesk.Domain.Entities.Users
+@model Helpdesk.WebUI.Models.Requests.RequestChooseCustomerViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Nowe zgłoszenie :: Wybierz klienta";
 }
 
-<h2>New Request</h2>
+<h2>Nowe zgłoszenie</h2>
 
-<h4>Choose customer</h4>
+<h4>Wybierz klienta</h4>
+@*<p>
+    @Html.ActionLink("Zgłoszenie bez klienta", "CreateTemp", "Computers", new { customerID = ViewBag.customerID }, new { @class = "btn btn-primary" })
+</p>*@
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ID)
+            ID
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Name
         </th>
         <th></th>
     </tr>
-    @foreach (Customer customer in Model)
+    @foreach (Customer customer in Model.Customers)
             {
         <tr>
             <td>
@@ -29,12 +31,14 @@
                 @customer.Name
             </td>
             <td>
-                @Html.ActionLink("Select", "ChooseComputer", new { customer = customer.ID })
+                @Html.ActionLink("Wybierz", "ChooseComputer", new { customerID = customer.ID })
             </td>
         </tr>
     }
 </table>
 
+
 <div>
-    @Html.ActionLink("Back to Requests List", "Index")
+    @*@Html.ActionLink("Create new Customer", "Create", "Customers")<br />*@
+    @*@Html.ActionLink("Back to Requests List", "Index")*@
 </div>

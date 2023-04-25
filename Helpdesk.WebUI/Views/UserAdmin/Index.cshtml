@@ -1,0 +1,46 @@
+﻿@using Helpdesk.WebUI.Models.UserAdmin
+@model Helpdesk.WebUI.Models.UserAdmin.UserIndexViewModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<div class="panel panel-primary">
+    <div class="panel-heading">
+        User Accounts
+    </div>
+    <table class="table table-striped">
+        <tr><th>Name</th><th>Email</th><th>Roles</th><th /></tr>
+        @if (Model.Users.Count() == 0)
+            {
+            <tr><td colspan="4" class="text-center">No User Accounts</td></tr>
+        }
+        else
+        {
+            foreach (UserIndexViewModel.User user in Model.Users)
+            {
+                <tr>
+                    <td>@user.UserName</td>
+                    <td>@user.Email</td>
+                    <td>
+                        @foreach (string role in @user.Roles)
+                        {
+                            <label class="label label-default">@role</label>
+                        }
+                    </td>
+                    <td style="white-space: nowrap; width: 1px;">
+                        @Html.ActionLink("Details", "Details", "UserAdmin", new { id = user.ID }, new { @class = "btn btn-sm btn-default" })
+                        @Html.ActionLink("Edit roles", "EditRoles", "UserAdmin", new { id = user.ID }, new { @class = "btn btn-sm btn-primary" })
+                    </td>
+                </tr>
+            }
+        }
+    </table>
+</div>
+
+<div style="text-align: center">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("Index", new { page = x }))
+</div>
+
+@Html.ActionLink("Create new account", "Create", null, new { @class = "btn btn-primary" })
+

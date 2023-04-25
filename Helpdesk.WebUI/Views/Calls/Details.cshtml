@@ -1,34 +1,108 @@
-﻿@model Helpdesk.Domain.Entities.Requests.Call
+﻿@using Helpdesk.WebUI.Helpers
+@using Helpdesk.WebUI.Models.Calls
+@model Helpdesk.WebUI.Models.Calls.CallDetailsViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = "Notatka";
 }
 
-<h2>Details</h2>
+<h2>Notatka</h2>
+<h4>Szczegóły</h4>
+<hr />
 
 <div>
-    <h4>Call</h4>
-    <hr />
     <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.RequestReadableID)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.RequestReadableID)
+        </dd>
         <dt>
             @Html.DisplayNameFor(model => model.Date)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Date)
         </dd>
 
+        @{
+            if (Model.CreatorConsultant != null)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatorConsultant)
+                </dt>
+                <dd>
+                    @Html.DisplayFor(model => model.CreatorConsultant.Name)
+                </dd>
+            }
+
+            if (Model.CreatorCustomer != null)
+            {
+                <dt>
+                    @Html.DisplayNameFor(model => model.CreatorCustomer)
+                </dt>
+                <dd>
+                    @Html.ActionLink(Model.CreatorCustomer.Name, "Details", "Customers", new { id = Model.CreatorCustomer.ID }, null)
+                </dd>
+            }
+        }
+
         <dt>
-            @Html.DisplayNameFor(model => model.Description)
+            @Html.DisplayNameFor(model => model.Status)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.Description)
+            <span class="label label-@Model.Status.Level">@Model.Status.Description</span>
         </dd>
-
     </dl>
+    <div>
+        <h4>Komentarz</h4>
+        <div class="panel panel-default">
+            <div class="panel-body">
+                @Html.DisplayFor(model => model.Description)
+            </div>
+        </div>
+
+        @if (Model.ComponentCalls.Count() > 0)
+        {
+            <h4>Komentarze do komponentów</h4>
+            foreach (CallDetailsViewModel.ComponentCall componentCall in Model.ComponentCalls)
+            {
+                <div class="panel panel-default">
+                    <table class="table table-condensed">
+                        <tr class="info">
+                            <th>Nazwa</th>
+                            <th>Numer seryjny</th>
+                        </tr>
+                        <tr>
+                            <td>
+                                @Html.ActionLink(@componentCall.ComponentName, "Details", "Components", new { id = componentCall.ComponentID }, null)
+                            </td>
+                            <td>
+                                @componentCall.ComponentSerialNo
+                            </td>
+                        </tr>
+
+                        <tr class="info">
+                            <th colspan="2">Opis</th>
+                        </tr>
+                        <tr>
+                            <td colspan="2">
+                                @if (string.IsNullOrEmpty(componentCall.Description))
+                                {
+                                    <em>-- Brak komentarza --</em>
+                                }
+                                else
+                                {
+                                    @componentCall.Description
+                                }
+                            </td>
+                        </tr>
+                    </table>
+                </div>
+            }
+        }
+    </div>
+    <p>
+        @Html.ActionLink("Wróć do zgłoszenia", "Details", "Requests", new { id = Model.RequestID }, new { @class = "btn btn-default" })
+    </p>
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

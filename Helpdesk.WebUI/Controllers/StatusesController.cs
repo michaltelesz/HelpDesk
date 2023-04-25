@@ -7,19 +7,20 @@ using System.Web.Mvc;
 
 namespace Helpdesk.WebUI.Controllers
 {
+    [Authorize]
     public class StatusesController : Controller
     {
-        private IRequestsRepository repository;
+        private IRequestsRepository _repository;
 
         public StatusesController(IRequestsRepository requestRepository)
         {
-            this.repository = requestRepository;
+            this._repository = requestRepository;
         }
 
         // GET: Status
         public ActionResult Index()
         {
-            return View(repository.Statuses);
+            return View(_repository.Statuses);
         }
     }
 }

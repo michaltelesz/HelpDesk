@@ -1,0 +1,46 @@
+﻿@using Helpdesk.WebUI.Helpers
+@using Helpdesk.WebUI.Models.Requests
+@model Helpdesk.WebUI.Models.Requests.RequestConsultantIndexViewModel
+
+@{
+    ViewBag.Title = "Zgłoszenia konsultanta";
+}
+
+<h2>Zgłoszenia konsultanta</h2>
+
+<table class="table table-hover">
+    <tr>
+        <th>ID</th>
+        <th>Utworzono</th>
+        <th>Klient</th>
+        <th>Status</th>
+        <th></th>
+    </tr>
+
+    @foreach (RequestConsultantIndexViewModel.Request request in Model.Requests)
+    {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => request.ReadableID)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => request.ReceivedDate)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => request.CustomerName)
+            </td>
+            <td>
+                @{
+                    <span class="label label-@request.StatusLevel">@request.StatusDescription</span>
+                }
+            </td>
+            <td class="text-right">
+                @Html.ActionLink("Szczegóły", "Details", new { id = request.ID })
+            </td>
+        </tr>
+                    }
+</table>
+
+<div align="center">
+    @Html.PageLinks(Model.PagingInfo, x => Url.Action("ConsultantIndex", new { consultantId = Model.ConsultantID, page = x, state = Model.States }))
+</div>

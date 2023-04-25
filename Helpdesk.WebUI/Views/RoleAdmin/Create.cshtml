@@ -1,0 +1,12 @@
+﻿@model Helpdesk.WebUI.Models.RoleAdmin.RoleCreateViewModel
+
+@{
+    ViewBag.Title = "Create Role";
+}
+<h2>Create Role</h2>
+@Html.ValidationSummary(false)
+@using (Html.BeginForm())
+{
+    <button type="submit" class="btn btn-primary">Create</button>
+    @Html.ActionLink("Cancel", "Index", null, new { @class = "btn btn-default" })
+}

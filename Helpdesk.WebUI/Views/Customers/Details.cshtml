@@ -1,19 +1,18 @@
-﻿@model Helpdesk.Domain.Entities.Users.Customer
+﻿@using Helpdesk.WebUI.Models.Customers
+@model Helpdesk.WebUI.Models.Customers.CustomerDetailsViewModel
 
 @{
-    ViewBag.Title = "Details";
+    ViewBag.Title = $"Klient: {@Model.Name}";
 }
 
-<h2>Details</h2>
-
+<h2>Klient</h2>
+<h4>@Model.Name</h4>
+<hr />
 <div>
-    <h4>Customer</h4>
-    <hr />
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.Name)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Name)
         </dd>
@@ -21,14 +20,69 @@
         <dt>
             @Html.DisplayNameFor(model => model.Address)
         </dt>
-
         <dd>
             @Html.DisplayFor(model => model.Address)
         </dd>
 
+        <dt>
+            @Html.DisplayNameFor(model => model.PhoneNo)
+        </dt>
+        <dd>
+            @Html.DisplayFor(model => model.PhoneNo)
+        </dd>
     </dl>
+
+    <p>
+        @Html.ActionLink("Edytuj", "Edit", new { id = Model.ID }, new { @class = "btn btn-warning" })
+    </p>
+    <hr />
+    <div>
+        <h4>Zgłoszenia</h4>
+        <dl class="dl-horizontal">
+            @foreach (CustomerDetailsViewModel.RequestsStatus requestStatus in Model.RequestsStatuses)
+            {
+                <dt><span class="label label-@requestStatus.Level">@requestStatus.Description</span></dt>
+                <dd>@requestStatus.Count</dd>
+            }
+        </dl>
+        <p>
+            @Html.ActionLink("Przejdź do zgłoszeń klienta", "CustomerIndex", "Requests", new { customerID = Model.ID }, new { @class = "btn btn-default" })
+            @Html.ActionLink("Dodaj zgłoszenie", "ChooseComputer", "Requests", new { customerId = Model.ID }, new { @class = "btn btn-primary" })
+        </p>
+    </div>
+    <hr />
+
+    <div>
+        <h4>Komputery</h4>
+        <p>@Html.ActionLink("Dodaj komputer", "Create", "Computers", new { customerId = Model.ID }, new { @class = "btn btn-default" })</p>
+        <div class="panel panel-info">
+            <table class="table table-hover">
+                <tr>
+                    <th>Nazwa</th>
+                    <th>Numer seryjny</th>
+                    <th>"Tymczasowy"</th>
+                    <th />
+                </tr>
+
+                @foreach (CustomerDetailsViewModel.Computer item in Model.Computers)
+            {
+                    <tr>
+                        <td>
+                            @Html.DisplayFor(call => item.Name)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(call => item.SerialNo)
+                        </td>
+                        <td>
+                            @Html.DisplayFor(call => item.Temporary)
+                        </td>
+                        <td>
+                            @Html.ActionLink("Szczegóły", "Details", "Computers", new { id = item.ID }, null)
+                        </td>
+                    </tr>
+                }
+            </table>
+        </div>
+    </div>
+
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.ID }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

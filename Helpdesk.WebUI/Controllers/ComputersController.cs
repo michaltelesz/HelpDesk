@@ -8,121 +8,199 @@ using System.Web;
 using System.Web.Mvc;
 using Helpdesk.Domain.Concrete;
 using Helpdesk.Domain.Entities.Computers;
+using Helpdesk.Domain.Abstract;
+using Helpdesk.WebUI.Models.Computers;
+using Helpdesk.Domain.Entities.Users;
+using Microsoft.AspNet.Identity;
 
 namespace Helpdesk.WebUI.Controllers
 {
+    [Authorize]
     public class ComputersController : Controller
     {
-        private EFDbContext db = new EFDbContext();
+        private IRequestsRepository _repository;
 
-        // GET: Computers
-        public ActionResult Index()
+        public ComputersController(IRequestsRepository requestsRepository)
         {
-            return View(db.Computers.ToList());
+            _repository = requestsRepository;
         }
 
-        // GET: Computers/Details/5
+        // GET: Requests
+        public ActionResult Index()
+        {
+            return View(_repository.Computers);
+        }
+
+        // GET: Computers/5
         public ActionResult Details(int? id)
         {
             if (id == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Computer computer = db.Computers.Find(id);
+            Computer computer = _repository.Computers.SingleOrDefault(r => r.ID == id);
             if (computer == null)
             {
                 return HttpNotFound();
             }
-            return View(computer);
-        }
 
-        // GET: Computers/Create
-        public ActionResult Create()
-        {
-            return View();
-        }
-
-        // POST: Computers/Create
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
-        [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create([Bind(Include = "ID,Name,SerialNo,Temporary")] Computer computer)
-        {
-            if (ModelState.IsValid)
+            string currentUserID = User.Identity.GetUserId();
+            Customer currentCustomer = _repository.Customers.SingleOrDefault(c => c.UserID == currentUserID);
+            if (!(User.IsInRole("Consultant") || (currentCustomer != null && (currentCustomer.ID == computer.OwnerID))))
             {
-                db.Computers.Add(computer);
-                db.SaveChanges();
-                return RedirectToAction("Index");
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
 
-            return View(computer);
+            List<ComputerDetailsViewModel.ComponentCategory> componentsByCategories = new List<ComputerDetailsViewModel.ComponentCategory>();
+            IEnumerable<ComponentTypeCategory> typeCategories = _repository.TypeCategories.OrderByDescending(tc => tc.Priority);
+            foreach (ComponentTypeCategory category in typeCategories)
+            {
+                IEnumerable<Component> componentsInCategory = computer.Components.Where(c => c.Type.CategoryID == category.ID).OrderBy(c=>c.Type.Name);
+                if (componentsInCategory.Count() > 0)
+                {
+                    componentsByCategories.Add(new ComputerDetailsViewModel.ComponentCategory()
+                    {
+                        Name = category.Name,
+                        Components = componentsInCategory.Select(c => new ComputerDetailsViewModel.Component()
+                        {
+                            ID = c.ID,
+                            Name = c.Name,
+                            SerialNo = c.SerialNo,
+                            TypeName = c.Type.Name
+                        })
+                    });
+                }
+            }
+            ComputerDetailsViewModel viewModel = new ComputerDetailsViewModel()
+            {
+                ID = computer.ID,
+                Name = computer.Name,
+                SerialNo = computer.SerialNo,
+                OwnerID = computer.OwnerID,
+                OwnerName = computer.Owner.Name,
+                ComponentsByCategories = componentsByCategories
+            };
+            return View(viewModel);
         }
 
-        // GET: Computers/Edit/5
-        public ActionResult Edit(int? id)
+        // GET: Computers/Create/5
+        [Route("Computers/Create/{customerID:int}")]
+        public ActionResult Create(int customerID)
         {
-            if (id == null)
+            if (!(User.IsInRole("Consultant")))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            Customer customer = _repository.Customers.SingleOrDefault(c => c.ID == customerID);
+            if (customer == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Computer computer = db.Computers.Find(id);
-            if (computer == null)
+            ComputerCreateViewModel viewModel = new ComputerCreateViewModel()
             {
-                return HttpNotFound();
-            }
-            return View(computer);
+                CustomerName = customer.Name
+            };
+            return View(viewModel);
         }
 
-        // POST: Computers/Edit/5
-        // To protect from overposting attacks, please enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
+        // POST: Computers/Create/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit([Bind(Include = "ID,Name,SerialNo,Temporary")] Computer computer)
+        [Route("Computers/Create/{customerID:int}")]
+        public ActionResult Create([Bind(Include = "Name, SerialNo")] ComputerCreateViewModel model, int customerID)
         {
+            if (!(User.IsInRole("Consultant")))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
             if (ModelState.IsValid)
             {
-                db.Entry(computer).State = EntityState.Modified;
-                db.SaveChanges();
-                return RedirectToAction("Index");
-            }
-            return View(computer);
-        }
+                Computer newComputer = new Computer
+                {
+                    OwnerID = customerID,
+                    Temporary = false,
+                    Name = model.Name,
+                    SerialNo = model.SerialNo
+                };
+                _repository.SaveComputer(newComputer);
 
-        // GET: Computers/Delete/5
-        public ActionResult Delete(int? id)
-        {
-            if (id == null)
+                return RedirectToAction("Details", new { id = newComputer.ID });
+            }
+            Customer customer = _repository.Customers.SingleOrDefault(c => c.ID == customerID);
+            if (customer == null)
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Computer computer = db.Computers.Find(id);
-            if (computer == null)
-            {
-                return HttpNotFound();
-            }
-            return View(computer);
+            model.CustomerName = customer.Name;
+            return View(model);
         }
 
-        // POST: Computers/Delete/5
-        [HttpPost, ActionName("Delete")]
+        // GET: Computers/CreateTemp/5
+        [Route("Computers/CreateTemp/{customerID:int}")]
+        public ActionResult CreateTemp(int customerID)
+        {
+            if (!(User.IsInRole("Consultant")))
+            {
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
+            }
+
+            IEnumerable<ComputerCreateTempViewModel.ComponentType> componentTypes = _repository.ComponentTypes.Select(c => new ComputerCreateTempViewModel.ComponentType()
+            {
+                ID = c.ID,
+                Name = c.Name,
+                DataGroup = c.Category.Name
+            });
+            ComputerCreateTempViewModel viewModel = new ComputerCreateTempViewModel()
+            {
+                ComponentTypes = componentTypes
+            };
+            return View("CreateTemp", viewModel);
+        }
+
+        // POST: Computers/CreateTemp/5
+        [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult DeleteConfirmed(int id)
+        [Route("Computers/CreateTemp/{customerID:int}")]
+        public ActionResult CreateTemp([Bind(Include = "ComponentName, ComponentSerialNo, ComponentTypeID")] ComputerCreateTempViewModel model, int customerID)
         {
-            Computer computer = db.Computers.Find(id);
-            db.Computers.Remove(computer);
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
+            if (!(User.IsInRole("Consultant")))
             {
-                db.Dispose();
+                return new HttpStatusCodeResult(HttpStatusCode.Unauthorized);
             }
-            base.Dispose(disposing);
+
+            if (ModelState.IsValid)
+            {
+                int customerTempComputersCount = _repository.Computers.Count(c => c.OwnerID == customerID && c.Temporary == true);
+                Computer newComputer = new Computer
+                {
+                    OwnerID = customerID,
+                    Temporary = true,
+                    Name = $"K:{model.ComponentName}::{model.ComponentSerialNo}",
+                    SerialNo = "#TEMP/" + customerID + "/" + (customerTempComputersCount + 1) + "#"
+                };
+                _repository.SaveComputer(newComputer);
+
+                Component component = new Component()
+                {
+                    ComputerID = newComputer.ID,
+                    Name = model.ComponentName,
+                    SerialNo = model.ComponentSerialNo,
+                    TypeID = model.ComponentTypeID
+                };
+                _repository.SaveComponent(component);
+
+                return RedirectToAction("Create", "Requests", new { computerID = newComputer.ID });
+            }
+            IEnumerable<ComputerCreateTempViewModel.ComponentType> componentTypes = _repository.ComponentTypes.Select(c => new ComputerCreateTempViewModel.ComponentType()
+            {
+                ID = c.ID,
+                Name = c.Name,
+                DataGroup = c.Category.Name
+            });
+            model.ComponentTypes = componentTypes;
+            return View(model);
         }
     }
 }

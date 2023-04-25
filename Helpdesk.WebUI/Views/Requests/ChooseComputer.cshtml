@@ -1,28 +1,33 @@
-﻿@model IEnumerable<Helpdesk.Domain.Entities.Computers.Computer>
-
-@using Helpdesk.Domain.Entities.Computers
+﻿@using Helpdesk.Domain.Entities.Computers
+@model Helpdesk.WebUI.Models.Requests.RequestChooseComputerViewModel
 
 @{
-    ViewBag.Title = "Create";
+    ViewBag.Title = "Nowe zgłoszenie :: Wybierz komputer";
 }
 
-<h2>New Request</h2>
+<h2>Nowe zgłoszenie</h2>
+<h4>@Model.CustomerName</h4>
+<hr />
+<h5>Wybierz komputer</h5>
+<p>
+    @Html.ActionLink("Zgłoszenie dla komponentu", "CreateTemp", "Computers", new { customerID = Model.CustomerID }, new { @class = "btn btn-primary" })
+    @Html.ActionLink("Dodaj komputer", "Create", "Computers", new { customerID = Model.CustomerID }, new { @class = "btn btn-info" })
+</p>
 
-<h4>Choose computer</h4>
 <table class="table">
     <tr>
         <th>
-            @Html.DisplayNameFor(model => model.ID)
+            ID
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.Name)
+            Name
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.SerialNo)
+            SerialNo
         </th>
         <th></th>
     </tr>
-    @foreach (Computer computer in Model)
+    @foreach (Computer computer in Model.Computers)
             {
         <tr>
             <td>
@@ -35,12 +40,13 @@
                 @computer.SerialNo
             </td>
             <td>
-                @Html.ActionLink("Select", "Create", new { computer = computer.ID})
+                @Html.ActionLink("Wybierz", "Create", new { computerID = computer.ID })
             </td>
         </tr>
     }
 </table>
 
 <div>
-    @Html.ActionLink("Back to List", "Index")
+    @*@Html.ActionLink("Back to Customers List", "Create")<br />
+    @Html.ActionLink("Back to Requests List", "Index")*@
 </div>

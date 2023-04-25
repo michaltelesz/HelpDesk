@@ -24,6 +24,7 @@ namespace Helpdesk.WebUI.Helpers
                     tag.AddCssClass("btn-primary");
                 }
                 tag.AddCssClass("btn btn-default");
+                tag.Attributes.Add("style", "margin-left: 3px; margin-right: 3px");
                 result.Append(tag.ToString());
             }
             return MvcHtmlString.Create(result.ToString());

@@ -1,0 +1,46 @@
+﻿@using Helpdesk.Domain.Entities.Users
+@model Helpdesk.WebUI.Models.Account.UserDetailsViewModel
+
+@{
+    ViewBag.Title = "Details";
+}
+
+<h2>Details</h2>
+<dl class="dl-horizontal">
+    <dt>Name</dt>
+    <dd>@Model.Name</dd>
+
+    <dt>E-mail</dt>
+    <dd>@Model.Email</dd>
+
+    @if (Model.Customer == null && Model.Consultant == null)
+    {
+        <dt>Customer</dt>
+        <dd>Customer profile not associated</dd>
+        <dt />
+        <dd>@Html.ActionLink("Create profile", "Create", "Customers")</dd>
+    }
+
+    @if (Model.Customer != null)
+    {
+        <dt>Customer</dt>
+        <dd>@Html.ActionLink(@Model.Customer.Name, "Details", "Customers", new { @id = Model.Customer.ID }, null)</dd>
+    }
+
+    @if (Model.Consultant != null)
+    {
+        <dt>Consultant</dt>
+        <dd>@Model.Consultant.Name</dd>
+    }
+
+    @if (Model.Roles.Count() > 0)
+    {
+        <dt>Roles</dt>
+        <dd>
+            @foreach (string role in Model.Roles)
+            {
+                <label class="label label-default">@role</label>
+            }
+        </dd>
+    }
+</dl>

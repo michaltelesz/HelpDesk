@@ -1,0 +1,92 @@
+﻿@model  Helpdesk.WebUI.Models.Shared.MenuViewModel
+
+<div class="panel-group">
+    @{
+        if (Model.IsAuthenticated)
+        {
+            if (Model.IsCustomer)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Zgłoszenia</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <nav>
+                            <ul class="nav">
+                                <li>@Html.ActionLink("Nowe zgłoszenie", "CustomerCreate", "Requests")</li>
+                                <li>@Html.RouteLink("Moje aktywne", routeName: "RequestsCustomerIndex", routeValues: new { customerId = string.Empty, state = "1,2" })</li>
+                                <li>@Html.RouteLink("Moje zamknięte", routeName: "RequestsCustomerIndex", routeValues: new { customerId = string.Empty, state = "3" })</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel klienta</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <nav>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>@Html.ActionLink("Komputery", "Index", "Computers")</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            }
+
+            if (Model.IsConsultant)
+            {
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Serwisant :: Zgłoszenia</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <nav>
+                            <ul class="nav">
+                                <li>@Html.ActionLink("Utwórz zgłoszenie", "Create", "Requests")</li>
+                                <li>@Html.ActionLink("Nieprzypisane", "IndexUnassigned", "Requests")</li>
+                                <li>@Html.RouteLink("Moje aktywne", routeName: "RequestsConsultantIndex", routeValues: new { consutantId = string.Empty, state = "1,2" })</li>
+                                <li>@Html.RouteLink("Moje zamknięte", routeName: "RequestsConsultantIndex", routeValues: new { consutantId = string.Empty, state = "3" })</li>
+                                <li>@Html.ActionLink("Wszystkie zgłoszenia", "Index", "Requests")</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <h3 class="panel-title">Panel serwisanta</h3>
+                    </div>
+
+                    <div class="panel-body">
+                        <nav>
+                            <ul class="nav nav-pills nav-stacked">
+                                <li>@Html.ActionLink("Klienci", "Index", "Customers")</li>
+                            </ul>
+                        </nav>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title">Użytkownik</h3>
+                </div>
+
+                <div class="panel-body">
+                    <nav>
+                        <ul class="nav nav-pills nav-stacked">
+                            <li>Nie zalogowano!!!</li>
+                        </ul>
+                    </nav>
+                </div>
+            </div>
+        }
+    }
+</div>

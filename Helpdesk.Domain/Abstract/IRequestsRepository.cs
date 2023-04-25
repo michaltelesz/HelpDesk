@@ -19,19 +19,26 @@ namespace Helpdesk.Domain.Abstract
         IEnumerable<Call> Calls { get; }
         void SaveCall(Call call);
 
+        IEnumerable<ComponentCall> ComponentCalls { get; }
+        void SaveComponentCall(ComponentCall componentCall);
+
         IEnumerable<Status> Statuses { get; }
         #endregion
 
         #region Computers
         IEnumerable<Computer> Computers { get; }
+        void SaveComputer(Computer computer);
         IEnumerable<Component> Components { get; }
+        void SaveComponent(Component component);
         IEnumerable<ComponentType> ComponentTypes { get; }
         IEnumerable<ComponentTypeCategory> TypeCategories { get; }
         #endregion
 
         #region Users
-        //IEnumerable<User> Users { get; set; }
+        IEnumerable<AppUser> Users { get; }
         IEnumerable<Customer> Customers { get; }
+        void SaveCustomer(Customer customer);
+        IEnumerable<Consultant> Consultants { get; }
 
         #endregion
     }

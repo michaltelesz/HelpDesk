@@ -1,0 +1,24 @@
+﻿@using Helpdesk.Domain.Entities.Users
+@model Helpdesk.WebUI.Models.UserAdmin.UserRoleEditViewModel
+
+@{
+    ViewBag.Title = "EditRoles";
+}
+
+<h2>Edit Roles</h2>
+<h2>@Model.User.Id - @Model.User.UserName</h2>
+<h3>Current Roles</h3>
+<ul>
+    @foreach (AppRole role in Model.CurrentRoles)
+    {
+        <li>@role.Name</li>
+    }
+</ul>
+
+<h3>Roles to add</h3>
+<ul>
+    @foreach (AppRole role in Model.RolesToAdd)
+    {
+        <li>@role.Name</li>
+    }
+</ul>
